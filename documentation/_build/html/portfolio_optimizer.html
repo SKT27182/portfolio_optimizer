@@ -1,0 +1,755 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>portfolio_optimizer package &#8212; portfolio_optimizer 0.1.1​ documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="portfolio_optimizer" href="modules.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="portfolio_optimizer"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">portfolio_optimizer 0.1.1​ documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">portfolio_optimizer</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">portfolio_optimizer package</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="portfolio-optimizer-package">
+<h1>portfolio_optimizer package<a class="headerlink" href="#portfolio-optimizer-package" title="Permalink to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="portfolio-optimizer-frontier-module">
+<h2>portfolio_optimizer.frontier module<a class="headerlink" href="#portfolio-optimizer-frontier-module" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-portfolio_optimizer.load_data">
+<span id="portfolio-optimizer-load-data-module"></span><h2>portfolio_optimizer.load_data module<a class="headerlink" href="#module-portfolio_optimizer.load_data" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="portfolio_optimizer.load_data.LoadData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">portfolio_optimizer.load_data.</span></span><span class="sig-name descname"><span class="pre">LoadData</span></span><a class="headerlink" href="#portfolio_optimizer.load_data.LoadData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Load the data from the tickers</p>
+<p>Load Index data from nasdaq only, For Indian Index price is in INR (mostly)</p>
+<p>Few Important Tickers are :</p>
+<p># Indices
+| ^GSPC | S&amp;P500 | USD |
+| ^NSEI | Nifty 50 | INR |
+| ^NSEBANK | NiftyBank | INR |
+| ^BSESN | Sensex | INR |</p>
+<p># Crypto
+| BTC-USD | Bitcoin | USD |
+| ETH-USD | Ethereum | USD |
+| LTC-USD | Litecoin | USD |
+| DOGE-USD | Dogecoin | USD |</p>
+<p># Commodities
+| GC=F | Gold | USD |
+| SI=F | Silver | USD |
+| CL=F | Crude Oil | USD |
+| HG=F | Copper | USD |
+| ZC=F | Corn | USD |</p>
+<p># US treasury
+| ^IRX | 13 Week Treasury Bill | USD |
+| ^FVX | 5 Year Treasury Note | USD |
+| ^TNX | 10 Year Treasury Note | USD |
+| ^TYX | 30 Year Treasury Bond | USD |</p>
+<p># Indian NSE (National Stock Exchange)
+| RELIANCE.NS | Reliance Industries | INR |
+| TCS.NS | Tata Consultancy Services | INR |
+| HDFCBANK.NS | HDFC Bank | INR |</p>
+<p># Indian BSE (Bombay Stock Exchange)
+| RELIANCE.BO | Reliance Industries | INR |
+| TCS.BO | Tata Consultancy Services | INR |
+| HDFCBANK.BO | HDFC Bank | INR |</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.load_data.LoadData.get_company_name">
+<span class="sig-name descname"><span class="pre">get_company_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ticker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exchange</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.load_data.LoadData.get_company_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the company name from the ticker</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ticker</strong> (<em>str</em>) – Ticker of the company</p></li>
+<li><p><strong>exchange</strong> (<em>str</em>) – Exchange to get the ticker name from</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Return the company name</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.load_data.LoadData.get_ticker_names">
+<span class="sig-name descname"><span class="pre">get_ticker_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exchange</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.load_data.LoadData.get_ticker_names" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>exchange</strong> (<em>str</em>) – Exchange to get the ticker name from</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Return the DataFrame of the Ticker and Company name listed on the specified exchanged</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.load_data.LoadData.load_data">
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tickers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exchange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nse'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.load_data.LoadData.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the data from the tickers</p>
+<p>Load Index data from nasdaq only, For Indian Index price is in INR (mostly)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tickers</strong> (<em>list</em>) – List of the tickers to load the data from</p></li>
+<li><p><strong>exchange</strong> (<em>str</em>) – Exchange to get the ticker name from</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>dict</em> – Return the dictionary of the dataframes of the tickers</p></li>
+<li><p><em>if exchange = “nse” or “bse”</em> – Returns the historical data in INR</p></li>
+<li><p><em>if exchange = “nasdaq”</em> – Returns the historical data in USD</p></li>
+<li><p><em>by default exchange = “nse”</em></p></li>
+<li><p><em>indices of nse are in INR and are available in nasdaq only</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.load_data.LoadData.save_data">
+<span class="sig-name descname"><span class="pre">save_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.load_data.LoadData.save_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the data to the path</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – Dictionary of the dataframes of the tickers</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – Path to save the data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-portfolio_optimizer.portfolio">
+<span id="portfolio-optimizer-portfolio-module"></span><h2>portfolio_optimizer.portfolio module<a class="headerlink" href="#module-portfolio_optimizer.portfolio" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">portfolio_optimizer.portfolio.</span></span><span class="sig-name descname"><span class="pre">Portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">benchmark</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">risk_free_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.add_stock">
+<span class="sig-name descname"><span class="pre">add_stock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stock_dic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.add_stock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a stock to the dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stock_dic</strong> (<em>dict</em>) – <dl class="simple">
+<dt>stock_dic = {name<span class="classifier">stock}</span></dt><dd><p>name : Name of the stock
+stock : Stock dataframe</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.cal_alpha">
+<span class="sig-name descname"><span class="pre">cal_alpha</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">benchmark</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'snp500'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.cal_alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the alpha and beta of a dataframe
+:param df: Merged Dataframe to calculate alpha and beta
+:type df: pd.DataFrame
+:param benchmark: Benchmark to calculate alpha and beta, by default “snp500”
+:type benchmark: pd.DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Alpha</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.cal_beta">
+<span class="sig-name descname"><span class="pre">cal_beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">benchmark</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'snp500'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.cal_beta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the alpha and beta of a dataframe
+:param df: Merged Dataframe to calculate alpha and beta
+:type df: pd.DataFrame
+:param benchmark: Benchmark to calculate alpha and beta, by default “snp500”
+:type benchmark: pd.DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Beta</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.cov_matrix">
+<span class="sig-name descname"><span class="pre">cov_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.cov_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the covariance matrix of a dataframe
+:param df: Dataframe to calculate covariance matrix
+:type df: pd.DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Covariance matrix</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.expected_returns">
+<span class="sig-name descname"><span class="pre">expected_returns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">risk_free_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.225</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">market_return</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.98</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CAPM'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.expected_returns" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>risk_free_rate</strong> (<em>float</em>) – </p>
+</dd>
+</dl>
+<p>market_return : float</p>
+<dl class="simple">
+<dt>beta<span class="classifier">pd.DataFrame, optional</span></dt><dd><p>Beta of the stocks, by default None</p>
+</dd>
+<dt>model<span class="classifier">str, optional</span></dt><dd><p>Model to calculate expected returns, by default “CAPM”</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>pd.DataFrame</em> – Expected returns of the stocks</p></li>
+<li><p><em>Eg</em></p></li>
+<li><p><em>——-</em></p></li>
+<li><p><em>obj.expected_returns(0.225, 0.89, beta=np.array([0.5, 0.6]))</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.get_returns">
+<span class="sig-name descname"><span class="pre">get_returns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.get_returns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the returns of a dataframe
+:param df: Dataframe to calculate returns
+:type df: pd.DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.merge_dfs">
+<span class="sig-name descname"><span class="pre">merge_dfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">join</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inner'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['Close']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.merge_dfs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merges a list of dataframes into one. Uses the index as the key and <cite>pd.concat</cite> to merge the dataframes
+:param stocks: keys : Stocks name</p>
+<blockquote>
+<div><p>values : Stocks DataFrame</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>join</strong> (<em>str</em><em>, </em><em>optional</em>) – How to join the dataframes, by default “inner”</p></li>
+<li><p><strong>columns</strong> (<em>str</em><em>, </em><em>optional</em>) – Which columns to merge, by default “Close”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Merged dataframe</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.portfolio_expected_return">
+<span class="sig-name descname"><span class="pre">portfolio_expected_return</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equals'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_returns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CAPM'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.portfolio_expected_return" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the portfolio return</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>weights</strong> (<em>np.array</em>) – Weights of the stocks
+or “equals” for equal weights</p></li>
+<li><p><strong>expected_returns</strong> (<em>np.array</em>) – Expected returns of the stocks</p></li>
+<li><p><strong>model</strong> (<em>str</em><em>, </em><em>optional</em>) – Model to calculate expected returns, by default “CAPM”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>float</em> – Portfolio return</p></li>
+<li><p><em>Eg</em></p></li>
+<li><p><em>——-</em></p></li>
+<li><p><em>obj.portfolio_return(weights, expected_returns)</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.portfolio_std">
+<span class="sig-name descname"><span class="pre">portfolio_std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equals'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.portfolio_std" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the portfolio standard deviation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>weights</strong> (<em>np.array</em>) – Weights of the stocks
+or “equals” for equal weights</p></li>
+<li><p><strong>cov_matrix</strong> (<em>pd.DataFrame</em>) – Covariance matrix of the stocks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>float</em> – Portfolio standard deviation</p></li>
+<li><p><em>Eg</em></p></li>
+<li><p><em>——-</em></p></li>
+<li><p><em>obj.portfolio_std(weights, cov_matrix)</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.portfolio_stocks">
+<span class="sig-name descname"><span class="pre">portfolio_stocks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.portfolio_stocks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.portfolio_summary">
+<span class="sig-name descname"><span class="pre">portfolio_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expected_returns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.portfolio_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the portfolio summary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>weights</strong> (<em>np.array</em>) – Weights of the stocks
+or “equals” for equal weights</p></li>
+<li><p><strong>expected_returns</strong> (<em>np.array</em>) – Expected returns of the stocks</p></li>
+<li><p><strong>cov_matrix</strong> (<em>pd.DataFrame</em>) – Covariance matrix of the stocks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>pd.DataFrame</em> – Portfolio summary</p></li>
+<li><p><em>Eg</em></p></li>
+<li><p><em>——-</em></p></li>
+<li><p><em>obj.portfolio_summary(weights, expected_returns, cov_matrix)</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.portfolio_variance">
+<span class="sig-name descname"><span class="pre">portfolio_variance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equals'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.portfolio_variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the portfolio variance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>weights</strong> (<em>np.array</em>) – Weights of the stocks
+or “equals” for equal weights</p></li>
+<li><p><strong>cov_matrix</strong> (<em>pd.DataFrame</em>) – Covariance matrix of the stocks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>float</em> – Portfolio variance</p></li>
+<li><p><em>Eg</em></p></li>
+<li><p><em>——-</em></p></li>
+<li><p><em>obj.portfolio_variance(weights, cov_matrix)</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.remove_stock">
+<span class="sig-name descname"><span class="pre">remove_stock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.remove_stock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a stock from the dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – Name of the stock</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-portfolio_optimizer.optimizer">
+<span id="portfolio-optimizer-optimizer-module"></span><h2>portfolio_optimizer.optimizer module<a class="headerlink" href="#module-portfolio_optimizer.optimizer" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="portfolio_optimizer.optimizer.Optimizer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">portfolio_optimizer.optimizer.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><a class="headerlink" href="#portfolio_optimizer.optimizer.Optimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Optimize the portfolio</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>portfolio</strong> (<a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio" title="portfolio_optimizer.portfolio.Portfolio"><em>Portfolio</em></a>) – Portfolio to optimize</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_optimizer.optimizer.Optimizer.portfolio">
+<span class="sig-name descname"><span class="pre">portfolio</span></span><a class="headerlink" href="#portfolio_optimizer.optimizer.Optimizer.portfolio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Portfolio to optimize</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio" title="portfolio_optimizer.portfolio.Portfolio">Portfolio</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.optimizer.Optimizer.model">
+<span class="sig-name descname"><span class="pre">model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.optimizer.Optimizer.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the expected return of the portfolio</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.optimizer.Optimizer.optimize_portfolio">
+<span class="sig-name descname"><span class="pre">optimize_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">risk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.optimizer.Optimizer.optimize_portfolio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimize the portfolio</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.optimizer.Optimizer.add_portfolio">
+<span class="sig-name descname"><span class="pre">add_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio" title="portfolio_optimizer.portfolio.Portfolio"><span class="pre">Portfolio</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.optimizer.Optimizer.add_portfolio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the portfolio to optimize</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>portfolio</strong> (<a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio" title="portfolio_optimizer.portfolio.Portfolio"><em>Portfolio</em></a>) – Portfolio to optimize</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><p>CAPM Model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>weights</strong> (<em>list</em>) – weights of each stocks</p></li>
+<li><p><strong>model</strong> (<em>str</em>) – Model to use for the the calculation of the expected return</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Return of the expected return of the portfolio</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">optimize_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_risk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimize the portfolio</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>str</em>) – Model to use for the optimization</p></li>
+<li><p><strong>max_risk</strong> (<em>float</em>) – Risk of the portfolio</p></li>
+<li><p><strong>short</strong> (<em>bool</em><em>, </em><em>optional</em>) – Allow shorting, by default False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns the optimized weights of the portfolio and maximized portfolio_returns</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-portfolio_optimizer.frontier"></span><dl class="py class">
+<dt class="sig sig-object py" id="portfolio_optimizer.frontier.CurveFitting">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">portfolio_optimizer.frontier.</span></span><span class="sig-name descname"><span class="pre">CurveFitting</span></span><a class="headerlink" href="#portfolio_optimizer.frontier.CurveFitting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to implement mth order polynomial regression using the least squares method.
+Use the <cite>fit</cite> method to fit the model. Then predict the Y values given X values usingthe <cite>predict</cite> method.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.frontier.CurveFitting.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.frontier.CurveFitting.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Polynomial regression of order m using least squares method.
+:param X: Independent variable.
+:type X: array_like
+:param Y: Dependent variable.
+:type Y: array_like
+:param order: Order of the polynomial. Default is 3.
+:type order: int, optional</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>beta</strong> – Coefficients of the polynomial regression model.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>array_like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.frontier.CurveFitting.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_l</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.frontier.CurveFitting.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the Y values given X values.
+:param X_l: Independent variable.
+:type X_l: array_like</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Y_l</strong> – Predicted Y values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>array_like</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="portfolio_optimizer.frontier.EfficientFrontier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">portfolio_optimizer.frontier.</span></span><span class="sig-name descname"><span class="pre">EfficientFrontier</span></span><a class="headerlink" href="#portfolio_optimizer.frontier.EfficientFrontier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.frontier.EfficientFrontier.add_portfolio">
+<span class="sig-name descname"><span class="pre">add_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio" title="portfolio_optimizer.portfolio.Portfolio"><span class="pre">Portfolio</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.frontier.EfficientFrontier.add_portfolio" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>portfolio</strong> (<a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio" title="portfolio_optimizer.portfolio.Portfolio"><em>Portfolio</em></a>) – Portfolio object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None, just add the portfolio to the EfficientFrontier object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.frontier.EfficientFrontier.plot_frontier">
+<span class="sig-name descname"><span class="pre">plot_frontier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'capm'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.frontier.EfficientFrontier.plot_frontier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a plot of the efficient frontier.
+:param short: Whether to allow shorting, by default False
+:type short: bool, optional
+:param model: The model to use, by default “capm”. Supported models are ‘capm’, ‘sim’</p>
+<blockquote>
+<div><p>(If you want to use ‘fff3’ or ‘fff5’, first load the fff parameters.)</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>plotly.graph_objects.Figure</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ef</span> <span class="o">=</span> <span class="n">EfficientFrontier</span><span class="p">(</span><span class="n">portfolio</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ef</span><span class="o">.</span><span class="n">plot_frontier</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>You have to create a Portoflio object first. Then you need to load data. Only then you can call <cite>plot_frontier()</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.frontier.EfficientFrontier.plot_sim">
+<span class="sig-name descname"><span class="pre">plot_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.frontier.EfficientFrontier.plot_sim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the efficient frontier.
+:param model: The model to use for calculating the expected returns. Default is “mean”.
+:type model: str
+:param short: Whether to allow shorting of stocks. Default is False.
+:type short: bool, optional</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fig</strong> – Plotly figure object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>plotly.graph_objects.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-portfolio_optimizer">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-portfolio_optimizer" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">portfolio_optimizer package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#portfolio-optimizer-frontier-module">portfolio_optimizer.frontier module</a></li>
+<li><a class="reference internal" href="#module-portfolio_optimizer.load_data">portfolio_optimizer.load_data module</a><ul>
+<li><a class="reference internal" href="#portfolio_optimizer.load_data.LoadData"><code class="docutils literal notranslate"><span class="pre">LoadData</span></code></a><ul>
+<li><a class="reference internal" href="#portfolio_optimizer.load_data.LoadData.get_company_name"><code class="docutils literal notranslate"><span class="pre">LoadData.get_company_name()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.load_data.LoadData.get_ticker_names"><code class="docutils literal notranslate"><span class="pre">LoadData.get_ticker_names()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.load_data.LoadData.load_data"><code class="docutils literal notranslate"><span class="pre">LoadData.load_data()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.load_data.LoadData.save_data"><code class="docutils literal notranslate"><span class="pre">LoadData.save_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-portfolio_optimizer.portfolio">portfolio_optimizer.portfolio module</a><ul>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio"><code class="docutils literal notranslate"><span class="pre">Portfolio</span></code></a><ul>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.add_stock"><code class="docutils literal notranslate"><span class="pre">Portfolio.add_stock()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.cal_alpha"><code class="docutils literal notranslate"><span class="pre">Portfolio.cal_alpha()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.cal_beta"><code class="docutils literal notranslate"><span class="pre">Portfolio.cal_beta()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.cov_matrix"><code class="docutils literal notranslate"><span class="pre">Portfolio.cov_matrix()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.expected_returns"><code class="docutils literal notranslate"><span class="pre">Portfolio.expected_returns()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.get_returns"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_returns()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.merge_dfs"><code class="docutils literal notranslate"><span class="pre">Portfolio.merge_dfs()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.portfolio_expected_return"><code class="docutils literal notranslate"><span class="pre">Portfolio.portfolio_expected_return()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.portfolio_std"><code class="docutils literal notranslate"><span class="pre">Portfolio.portfolio_std()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.portfolio_stocks"><code class="docutils literal notranslate"><span class="pre">Portfolio.portfolio_stocks()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.portfolio_summary"><code class="docutils literal notranslate"><span class="pre">Portfolio.portfolio_summary()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.portfolio_variance"><code class="docutils literal notranslate"><span class="pre">Portfolio.portfolio_variance()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.remove_stock"><code class="docutils literal notranslate"><span class="pre">Portfolio.remove_stock()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-portfolio_optimizer.optimizer">portfolio_optimizer.optimizer module</a><ul>
+<li><a class="reference internal" href="#portfolio_optimizer.optimizer.Optimizer"><code class="docutils literal notranslate"><span class="pre">Optimizer</span></code></a><ul>
+<li><a class="reference internal" href="#portfolio_optimizer.optimizer.Optimizer.portfolio"><code class="docutils literal notranslate"><span class="pre">Optimizer.portfolio</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.optimizer.Optimizer.model"><code class="docutils literal notranslate"><span class="pre">Optimizer.model()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.optimizer.Optimizer.optimize_portfolio"><code class="docutils literal notranslate"><span class="pre">Optimizer.optimize_portfolio()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.optimizer.Optimizer.add_portfolio"><code class="docutils literal notranslate"><span class="pre">Optimizer.add_portfolio()</span></code></a></li>
+<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">Optimizer.model()</span></code></a></li>
+<li><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">Optimizer.optimize_portfolio()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#portfolio_optimizer.frontier.CurveFitting"><code class="docutils literal notranslate"><span class="pre">CurveFitting</span></code></a><ul>
+<li><a class="reference internal" href="#portfolio_optimizer.frontier.CurveFitting.fit"><code class="docutils literal notranslate"><span class="pre">CurveFitting.fit()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.frontier.CurveFitting.predict"><code class="docutils literal notranslate"><span class="pre">CurveFitting.predict()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#portfolio_optimizer.frontier.EfficientFrontier"><code class="docutils literal notranslate"><span class="pre">EfficientFrontier</span></code></a><ul>
+<li><a class="reference internal" href="#portfolio_optimizer.frontier.EfficientFrontier.add_portfolio"><code class="docutils literal notranslate"><span class="pre">EfficientFrontier.add_portfolio()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.frontier.EfficientFrontier.plot_frontier"><code class="docutils literal notranslate"><span class="pre">EfficientFrontier.plot_frontier()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.frontier.EfficientFrontier.plot_sim"><code class="docutils literal notranslate"><span class="pre">EfficientFrontier.plot_sim()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-portfolio_optimizer">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="modules.html"
+                          title="previous chapter">portfolio_optimizer</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/portfolio_optimizer.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="portfolio_optimizer"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">portfolio_optimizer 0.1.1​ documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >portfolio_optimizer</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">portfolio_optimizer package</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Shailja Kant Tiwari.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    </div>
+  </body>
+</html>
