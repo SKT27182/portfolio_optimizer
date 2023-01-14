@@ -360,6 +360,7 @@ class Portfolio:
         -------
         pd.DataFrame
             Covariance matrix
+            
         """
         if df is None:
             df = self.merged_stocks

@@ -1,6 +1,8 @@
 # portfolio_optimizer
 
 [![PyPI version](https://badge.fury.io/py/Portfolio-Optimizer.svg)](https://badge.fury.io/py/Portfolio-Optimizer)
+[![Downloads](https://static.pepy.tech/badge/portfolio-optimizer0)](https://pepy.tech/project/portfolio-optimizer0)
+[![Downloads](https://static.pepy.tech/badge/portfolio-optimizer0/month)](https://pepy.tech/project/portfolio-optimizer0)
 
 
 A small python library for analysis of historical data of stocks. Especially for portfolio management and optimization.
