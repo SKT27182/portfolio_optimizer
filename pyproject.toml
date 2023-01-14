@@ -1,0 +1,36 @@
+# pyproject.toml
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "portfolio-optimizer0"
+version = "0.1.0"
+description = "A library for Portfolio management and optimization"
+readme = "README.md"
+authors = [{ name = "Shailja Kant Tiwari", email = "shailjakant2000@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["portfolio", "optimizer"]
+dependencies = [
+    "pandas",
+    "numpy",
+    "plotly",
+    "yfinance",
+    "scipy",
+    "tabulate"
+]
+requires-python = ">=3.7"
+
+[project.optional-dependencies]
+download = []
+
+[project.urls]
+Homepage = "https://github.com/shailjakant-3245/portfolio_optimizer.git"
+repository = "https://github.com/shailjakant-3245/portfolio_optimizer.git"
+documentation = "https://shailjakant-3245.github.io/portfolio_optimizer/"
