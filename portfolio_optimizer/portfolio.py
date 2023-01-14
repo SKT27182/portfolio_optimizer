@@ -5,7 +5,7 @@ from tabulate import tabulate
 
 
 class Portfolio:
-    def __init__(self, freq,  benchmark={}, risk_free_rate=None) -> None:
+    def __init__(self, freq,  benchmark: dict, risk_free_rate=None) -> None:
         """
         Initializes the Portfolio class
 
@@ -53,7 +53,18 @@ class Portfolio:
         -------
         None
         """
+
         self.market = list(benchmark.keys())[0]
+
+        # Check whether a given benchmark have the pd.Datetime as index or not
+        if isinstance(benchmark[self.market].index, pd.DatetimeIndex):
+            pass
+        else:
+            benchmark[self.market].index = benchmark[self.market]["Date"]
+            benchmark[self.market].index = pd.to_datetime(benchmark[self.market].index)
+            benchmark[self.market].drop("Date", axis=1, inplace=True)
+
+
         self.stocks = benchmark
         self.freq = freq
         if risk_free_rate is None:
@@ -62,9 +73,9 @@ class Portfolio:
             self.risk_free_rate = risk_free_rate["Close"].asfreq(self.freq, method="ffill").pct_change().dropna().mean()*100
         self.merged_stocks = self.stocks[self.market]
         self.market_return = self.merged_stocks.asfreq(self.freq, method="ffill").pct_change().dropna()["Close"].mean()*100 # monthly returns of the market
-        self.betas = pd.DataFrame()
-        self.alphas = pd.DataFrame()
-        self.returns = pd.DataFrame()
+        self.betas = None
+        self.alphas = None
+        self.returns = None
         
 
     
@@ -102,7 +113,7 @@ class Portfolio:
         None
         """
         self.merged_stocks = self.merge_dfs()
-        self.returns = self.get_returns()
+        self.returns = self.cal_returns()
         self.betas = self.cal_beta()
         self.alphas = self.cal_alpha()
 
@@ -144,7 +155,7 @@ class Portfolio:
         self.merged_stocks = df
         return df
 
-    def get_returns(self, df=None, freq="M"):
+    def cal_returns(self, df=None, freq="M"):
 
         """
         Calculates the returns of a dataframe
@@ -182,6 +193,13 @@ class Portfolio:
         -------
         None
         """
+        for value in stock_dic.values():
+            if isinstance(value.index, pd.DatetimeIndex):
+                pass
+            else:
+                value.index = value["Date"]
+                value.index = pd.to_datetime(value.index)
+                value.drop("Date", axis=1, inplace=True)
         self.stocks.update(stock_dic)
         self.__update()
 
@@ -206,28 +224,38 @@ class Portfolio:
         -------
         obj["Apple"] = apple
         """
+
+        if isinstance(stock.index, pd.DatetimeIndex):
+            pass
+        else:
+            stock.index = stock["Date"]
+            stock.index = pd.to_datetime(stock.index)
+            stock.drop("Date", axis=1, inplace=True)
         self.stocks[name] = stock
         self.__update()
         
 
-    def remove_stock(self, name):
+    def remove_stock(self, names):
         """
         Removes a stock from the dictionary
 
         Parameters
         ----------
-        name : str
-            Name of the stock
+        names : list
+            Names of the stocks
 
         Returns
         -------
         None
         """
-        if name in self.stocks.keys():
-            self.stocks.pop(name)
-            self.__update()
-        else:
-            print(f"{name} stock is not present in Portfolio")
+        for name in names:
+            if  name in [self.market]:
+                print(f"You can't remove your benchmark from the portfolio")
+            elif name in self.stocks.keys():
+                self.stocks.pop(name)
+                self.__update()
+            else:
+                print(f"{name} stock is not present in Portfolio")
         
         
 
@@ -248,7 +276,10 @@ class Portfolio:
         --------
         del obj["apple"]
         """
-        if name in self.stocks.keys():
+
+        if  name in [self.market]:
+            print(f"You can't remove your benchmark from the portfolio")
+        elif name in self.stocks.keys():
             self.stocks.pop(name)
             # print(f"{name} stock is removed from Portfolio")
             self.__update()
@@ -303,7 +334,7 @@ class Portfolio:
             freq = self.freq
         else:
             freq = freq
-            returns = self.get_returns(df, freq=freq)
+            returns = self.cal_returns(df, freq=freq)
             benchmark = benchmark
             
         betas = pd.DataFrame()
@@ -336,7 +367,7 @@ class Portfolio:
             freq = self.freq
         else:
             freq = freq
-            returns = self.get_returns(df, freq=freq)
+            returns = self.cal_returns(df, freq=freq)
             betas = self.cal_beta(df, benchmark=benchmark, freq=freq)
             benchmark = benchmark
             
@@ -368,7 +399,7 @@ class Portfolio:
             freq = self.freq
         else:
             freq = freq
-            returns = self.get_returns(df, freq=freq)
+            returns = self.cal_returns(df, freq=freq)
         
         return returns.cov()
 

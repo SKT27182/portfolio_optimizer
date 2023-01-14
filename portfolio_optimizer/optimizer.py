@@ -103,13 +103,14 @@ class Optimizer:
         
         cons = (
             {'type': 'eq', 'fun': lambda x: sum(x) - 1},
-            {'type': 'ineq', 'fun': lambda x: max_risk - self.portfolio.portfolio_std(weights=x)}
+            {'type': 'ineq', 'fun': lambda x:max_risk - self.portfolio.portfolio_std(weights=x) }
                 )
 
         res = minimize(objective_function, ini_weights, method='SLSQP', bounds=bounds, constraints=cons, tol=0.0001)
 
         weights = res["x"]
-        var = self.portfolio.portfolio_std(weights=res.x)
+        var = self.portfolio.portfolio_variance(weights=res.x)
+        std = self.portfolio.portfolio_std(weights=res.x)
         portfolio_expected_return = -res.fun
 
         if res["success"]:
@@ -119,7 +120,7 @@ class Optimizer:
             print("Here are the last results:")
         
         print(f"Expected Portfolio's Returns : {portfolio_expected_return:.4f}")
-        print(f"Risk : {var:.4f}")
+        print(f"Risk : {std:.4f}")
 
         print("Expected weights:")
         print("-" * 20)
@@ -132,5 +133,5 @@ class Optimizer:
             "weights": weights,
             "portfolio_expected_return": portfolio_expected_return,
             "portfolio_variance": var,
-            "portfolio_std": np.sqrt(var),
+            "portfolio_std": std,
         }

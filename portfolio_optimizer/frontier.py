@@ -144,7 +144,7 @@ class EfficientFrontier:
 
         """
 
-        n = 30000
+        n = 7000
 
         if short:
             weights = np.random.uniform(low=-2.0, high=2.0, size=(n, len(self.portfolio) ) )
