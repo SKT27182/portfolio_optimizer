@@ -6,11 +6,40 @@ from scipy.optimize import minimize
 
 class Optimizer:
 
+    """
+    Optimize the portfolio
+
+    Parameters
+    ----------
+    portfolio : Portfolio
+        Portfolio to optimize
+
+    Attributes
+    ----------
+    portfolio : Portfolio
+        Portfolio to optimize
+
+    Methods
+    -------
+    model(weights, model)
+        Calculate the expected return of the portfolio
+    optimize_portfolio(model, risk, short=False)
+        Optimize the portfolio
+        
+    """
+
     def __init__(self) -> None:
-        # self.portfolio = Portfolio(**kwargs)
         pass
 
     def add_portfolio(self, portfolio:Portfolio):
+        """
+        Add the portfolio to optimize
+
+        Parameters
+        ----------
+        portfolio : Portfolio
+            Portfolio to optimize
+        """
         self.portfolio = portfolio
 
 
@@ -49,7 +78,7 @@ class Optimizer:
         ----------
         model : str
             Model to use for the optimization
-        risk : float
+        max_risk : float
             Risk of the portfolio
         short : bool, optional
             Allow shorting, by default False

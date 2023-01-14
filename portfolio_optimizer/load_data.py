@@ -4,7 +4,13 @@ import yfinance as yf
 import pandas as pd
 
 class LoadData:
+
+
     """
+    Load the data from the tickers
+    
+    Load Index data from nasdaq only, For Indian Index price is in INR (mostly)
+
     Few Important Tickers are :
 
     # Indices
@@ -116,7 +122,7 @@ class LoadData:
 
         
 
-    def load_data(self, tickers, exchange):
+    def load_data(self, tickers, exchange="nse"):
         """
         Load the data from the tickers
 
@@ -139,6 +145,9 @@ class LoadData:
             Returns the historical data in INR
         if exchange = "nasdaq":
             Returns the historical data in USD
+
+        by default exchange = "nse"
+        indices of nse are in INR and are available in nasdaq only
 
         """
         data = {}

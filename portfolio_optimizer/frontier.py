@@ -84,9 +84,40 @@ class EfficientFrontier:
         pass
 
     def add_portfolio(self, portfolio:Portfolio):
+        """
+        
+        Parameters
+        ----------
+        portfolio : Portfolio
+            Portfolio object.
+
+        Returns
+        -------
+        None, just add the portfolio to the EfficientFrontier object.
+        
+        """
         self.portfolio = portfolio
 
-    def cal_required_parameters(self, weights, model):
+    def __cal_required_parameters(self, weights, model):
+
+        """
+        Calculate the required parameters for the efficient frontier.
+        Parameters
+        ----------
+        weights : array_like
+            Weights of the portfolio.
+        model : str
+            The model to use for calculating the expected returns. Default is "mean".
+
+        Returns
+        -------
+        p_std : float
+            Standard deviation of the portfolio.
+        p_returns : float
+            Expected returns of the portfolio.
+
+
+        """
 
         p_std = self.portfolio.portfolio_std(weights=weights)
         p_returns = self.portfolio.portfolio_expected_return(weights=weights, model=model)
@@ -94,6 +125,24 @@ class EfficientFrontier:
         return p_std, p_returns
 
     def __simulate_frontier(self, model, short=False):
+
+        """
+        Simulate the efficient frontier.
+        Parameters
+        ----------
+        model : str
+            The model to use for calculating the expected returns. Default is "mean".
+        short : bool, optional
+            Whether to allow shorting of stocks. Default is False.
+
+        Returns
+        -------
+        data : pandas.DataFrame
+            Dataframe containing the simulated portfolios.
+        weights : array_like
+            Weights of the simulated portfolios.
+
+        """
 
         n = 30000
 
@@ -113,7 +162,7 @@ class EfficientFrontier:
         p_risk = np.zeros(len(weights))
         sharpe_ratios = np.zeros(len(weights))
         for i in range(n):
-            p_std_, p_returns_ = self.cal_required_parameters(weights[i], model)
+            p_std_, p_returns_ = self.__cal_required_parameters(weights[i], model)
             p_returns[i] = p_returns_
             p_risk[i] = p_std_
             sharpe_ratios[i] = (p_returns_ - self.portfolio.risk_free_rate) / p_std_
@@ -131,6 +180,22 @@ class EfficientFrontier:
         
 
     def plot_sim(self, model, short=False):
+
+        """
+        Plot the efficient frontier.
+        Parameters
+        ----------
+        model : str
+            The model to use for calculating the expected returns. Default is "mean".
+        short : bool, optional
+            Whether to allow shorting of stocks. Default is False.
+
+        Returns
+        -------
+        fig : plotly.graph_objects.Figure
+            Plotly figure object.
+
+        """
 
         data , weights = self.__simulate_frontier(model, short=short)
         p_risk = data["Risk"]
@@ -164,6 +229,23 @@ class EfficientFrontier:
 
 
     def __pre_process(self, data):
+
+        """
+        Pre-process the data.
+        Parameters
+        ----------
+        data : pandas.DataFrame
+            Dataframe containing the simulated portfolios.
+
+        Returns
+        -------
+        data_new : pandas.DataFrame
+            Dataframe containing the processed portfolios.
+        index : array_like
+            Index of the processed portfolios.
+
+        """
+
         data["Returns2"] = data["Returns"].apply(lambda x: np.round(x, 3))
         returns_unique = data["Returns2"].unique()
         min_risk = []
@@ -182,6 +264,24 @@ class EfficientFrontier:
 
 
     def __fit(self, X, Y, order=3):
+
+        """
+        Fit the data.
+        Parameters
+        ----------
+        X : array_like
+            X values.
+        Y : array_like
+            Y values.
+        order : int, optional
+            Order of the polynomial. Default is 3.
+
+        Returns
+        -------
+        cf : CurveFitting
+            CurveFitting object.
+
+        """
         cf = CurveFitting()
         _ = cf.fit(X=X, Y=Y, order=order)
         Y_pred = cf.predict(X)
