@@ -172,7 +172,7 @@
 <span id="portfolio-optimizer-portfolio-module"></span><h2>portfolio_optimizer.portfolio module<a class="headerlink" href="#module-portfolio_optimizer.portfolio" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">portfolio_optimizer.portfolio.</span></span><span class="sig-name descname"><span class="pre">Portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">benchmark</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">risk_free_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">portfolio_optimizer.portfolio.</span></span><span class="sig-name descname"><span class="pre">Portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">benchmark</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">risk_free_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.add_stock">
@@ -230,6 +230,22 @@ stock : Stock dataframe</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.cal_returns">
+<span class="sig-name descname"><span class="pre">cal_returns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.cal_returns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the returns of a dataframe
+:param df: Dataframe to calculate returns
+:type df: pd.DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.cov_matrix">
 <span class="sig-name descname"><span class="pre">cov_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.cov_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the covariance matrix of a dataframe
@@ -269,22 +285,6 @@ stock : Stock dataframe</p>
 <li><p><em>obj.expected_returns(0.225, 0.89, beta=np.array([0.5, 0.6]))</em></p></li>
 </ul>
 </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.get_returns">
-<span class="sig-name descname"><span class="pre">get_returns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.get_returns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the returns of a dataframe
-:param df: Dataframe to calculate returns
-:type df: pd.DataFrame</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Returns</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -418,11 +418,11 @@ or “equals” for equal weights</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.remove_stock">
-<span class="sig-name descname"><span class="pre">remove_stock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.remove_stock" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">remove_stock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.remove_stock" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes a stock from the dictionary</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – Name of the stock</p>
+<dd class="field-odd"><p><strong>names</strong> (<em>list</em>) – Names of the stocks</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -661,9 +661,9 @@ Use the <cite>fit</cite> method to fit the model. Then predict the Y values give
 <li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.add_stock"><code class="docutils literal notranslate"><span class="pre">Portfolio.add_stock()</span></code></a></li>
 <li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.cal_alpha"><code class="docutils literal notranslate"><span class="pre">Portfolio.cal_alpha()</span></code></a></li>
 <li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.cal_beta"><code class="docutils literal notranslate"><span class="pre">Portfolio.cal_beta()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.cal_returns"><code class="docutils literal notranslate"><span class="pre">Portfolio.cal_returns()</span></code></a></li>
 <li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.cov_matrix"><code class="docutils literal notranslate"><span class="pre">Portfolio.cov_matrix()</span></code></a></li>
 <li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.expected_returns"><code class="docutils literal notranslate"><span class="pre">Portfolio.expected_returns()</span></code></a></li>
-<li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.get_returns"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_returns()</span></code></a></li>
 <li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.merge_dfs"><code class="docutils literal notranslate"><span class="pre">Portfolio.merge_dfs()</span></code></a></li>
 <li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.portfolio_expected_return"><code class="docutils literal notranslate"><span class="pre">Portfolio.portfolio_expected_return()</span></code></a></li>
 <li><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio.portfolio_std"><code class="docutils literal notranslate"><span class="pre">Portfolio.portfolio_std()</span></code></a></li>
