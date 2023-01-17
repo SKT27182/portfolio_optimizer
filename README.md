@@ -1,6 +1,6 @@
 # portfolio_optimizer0
 
-[![PyPI version](https://badge.fury.io/py/Portfolio-Optimizer.svg)](https://badge.fury.io/py/Portfolio-Optimizer)
+[![PyPI version](https://badge.fury.io/py/Portfolio-Optimizer.svg)](https://badge.fury.io/py/portfolio-optimizer0)
 [![Downloads](https://static.pepy.tech/badge/portfolio-optimizer0)](https://pepy.tech/project/portfolio-optimizer0)
 
 

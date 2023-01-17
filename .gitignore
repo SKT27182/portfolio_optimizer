@@ -1,0 +1,6 @@
+.ipynb_checkpoints/
+__pycache__/
+portfolio_optimizer/__pycache__/
+dist/
+tests/.pytest_cache/
+tests/__pycache__/
