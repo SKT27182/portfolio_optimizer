@@ -292,14 +292,12 @@ stock : Stock dataframe</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="portfolio_optimizer.portfolio.Portfolio.merge_dfs">
 <span class="sig-name descname"><span class="pre">merge_dfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">join</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inner'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['Close']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.portfolio.Portfolio.merge_dfs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Merges a list of dataframes into one. Uses the index as the key and <cite>pd.concat</cite> to merge the dataframes
-:param stocks: keys : Stocks name</p>
-<blockquote>
-<div><p>values : Stocks DataFrame</p>
-</div></blockquote>
+<dd><p>Merges a list of dataframes into one. Uses the index as the key and <cite>pd.concat</cite> to merge the dataframes</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>stocks</strong> (<em>dictionary</em>) – keys : Stocks name
+values : Stocks DataFrame</p></li>
 <li><p><strong>join</strong> (<em>str</em><em>, </em><em>optional</em>) – How to join the dataframes, by default “inner”</p></li>
 <li><p><strong>columns</strong> (<em>str</em><em>, </em><em>optional</em>) – Which columns to merge, by default “Close”</p></li>
 </ul>
@@ -583,19 +581,20 @@ Use the <cite>fit</cite> method to fit the model. Then predict the Y values give
 <dl class="py method">
 <dt class="sig sig-object py" id="portfolio_optimizer.frontier.EfficientFrontier.plot_frontier">
 <span class="sig-name descname"><span class="pre">plot_frontier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'capm'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.frontier.EfficientFrontier.plot_frontier" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a plot of the efficient frontier.
-:param short: Whether to allow shorting, by default False
-:type short: bool, optional
-:param model: The model to use, by default “capm”. Supported models are ‘capm’, ‘sim’</p>
-<blockquote>
-<div><p>(If you want to use ‘fff3’ or ‘fff5’, first load the fff parameters.)</p>
-</div></blockquote>
+<dd><p>Creates a plot of the efficient frontier.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>fig</strong></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>short</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to allow shorting, by default False</p></li>
+<li><p><strong>model</strong> (<em>str</em><em>, </em><em>optional</em>) – The model to use, by default “capm”. Supported models are ‘capm’, ‘sim’
+(If you want to use ‘fff3’ or ‘fff5’, first load the fff parameters.)</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>plotly.graph_objects.Figure</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fig</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>plotly.graph_objects.Figure</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>

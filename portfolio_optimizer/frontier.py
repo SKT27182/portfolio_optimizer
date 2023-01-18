@@ -292,6 +292,7 @@ class EfficientFrontier:
     def plot_frontier(self, short=False, model="capm"):
         """
         Creates a plot of the efficient frontier.
+
         Parameters
         ----------
         short : bool, optional
@@ -299,15 +300,18 @@ class EfficientFrontier:
         model : str, optional
             The model to use, by default "capm". Supported models are 'capm', 'sim'
             (If you want to use 'fff3' or 'fff5', first load the fff parameters.)
+
         Returns
         -------
         fig : plotly.graph_objects.Figure
+
         Examples
         --------
         >>> ef = EfficientFrontier(portfolio)
         >>> ef.plot_frontier()
         Notes
         -----
+        
         You have to create a Portoflio object first. Then you need to load data. Only then you can call `plot_frontier()`.
         """
 

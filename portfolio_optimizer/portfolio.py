@@ -123,6 +123,7 @@ class Portfolio:
     def merge_dfs(self, stocks=None, join="inner", columns=["Close"]):
         """
         Merges a list of dataframes into one. Uses the index as the key and `pd.concat` to merge the dataframes
+
         Parameters
         ----------
         stocks : dictionary
@@ -132,6 +133,7 @@ class Portfolio:
             How to join the dataframes, by default "inner"
         columns : str, optional
             Which columns to merge, by default "Close"
+            
         Returns
         -------
         pd.DataFrame
