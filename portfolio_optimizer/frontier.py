@@ -1,9 +1,11 @@
 # Make a Efficient Frontier
 
 from portfolio_optimizer.portfolio import Portfolio
+from portfolio_optimizer.style import cprint
 import plotly.graph_objects as go
 import plotly.express as px
 import plotly.offline as py
+import tqdm
 py.init_notebook_mode(connected=True)
 
 import numpy as np
@@ -98,74 +100,141 @@ class EfficientFrontier:
         """
         self.portfolio = portfolio
 
-    def __cal_required_parameters(self, weights, model):
+    # add a method to make a temporary portfolio in case the user doesn't have a portfolio object
+    def __temp_portfolio(self, stocks=None, **kwargs):
+
+        """
+        Create a temporary portfolio object.
+        Parameters
+        ----------
+
+        stocks : dict
+            Dictionary containing the stock names and the stock data.
+
+        **kwargs : dict
+
+            freq : str
+                Frequency of the data. Default is "Monthly".
+
+            benchmark : dict
+                Dictionary containing the benchmark Name and the benchmark data.
+
+            risk_free_rate : float
+                Risk free rate of return. Default is 0.225
+
+            Returns
+            -------
+            temp : Portfolio
+                Temporary portfolio object.
+
+        """
+
+        temp = Portfolio(**kwargs)
+        
+        temp.add_stock(stock_dic=stocks)
+
+        return temp
+
+
+    def __cal_required_parameters(self, weights, model, portfolio):
 
         """
         Calculate the required parameters for the efficient frontier.
         Parameters
         ----------
+
         weights : array_like
             Weights of the portfolio.
+
         model : str
             The model to use for calculating the expected returns. Default is "mean".
 
+        portfolio : Portfolio
+            Portfolio object.
+            
+
         Returns
         -------
+
         p_std : float
             Standard deviation of the portfolio.
+
         p_returns : float
             Expected returns of the portfolio.
 
-
         """
 
-        p_std = self.portfolio.portfolio_std(weights=weights)
-        p_returns = self.portfolio.portfolio_expected_return(weights=weights, model=model)
+        p_std = portfolio.portfolio_std(weights=weights)
+        p_returns = portfolio.portfolio_expected_return(weights=weights, model=model)
 
         return p_std, p_returns
 
-    def __simulate_frontier(self, model, short=False):
+    def __simulate_frontier(self, model, short=False, stocks=None, **kwargs):
 
         """
+
         Simulate the efficient frontier.
+
         Parameters
         ----------
+
         model : str
             The model to use for calculating the expected returns. Default is "mean".
+
         short : bool, optional
             Whether to allow shorting of stocks. Default is False.
 
+        --------------------------------------------
+        Needed if user want to make a frontier with random stocks or without adding a portfolio
+        --------------------------------------------
+        stocks : dict, optional
+            Dictionary containing the stock names and the stock data.
+
+        **kwargs : dict
+
+
         Returns
         -------
+
         data : pandas.DataFrame
             Dataframe containing the simulated portfolios.
+
         weights : array_like
             Weights of the simulated portfolios.
 
         """
 
+
+
+        # check if portfolio is added or not and 
+        # check also that what if user want to make a 
+        # frontier of different stocks after adding a portfolio
+        # if not then make a temporray portfolio
+        if not hasattr(self, "portfolio") or stocks is not None:
+            portfolio = self.__temp_portfolio(stocks=stocks, **kwargs)
+        else:
+            portfolio = self.portfolio
+
+
         n = 7000
 
         if short:
-            weights = np.random.uniform(low=-2.0, high=2.0, size=(n, len(self.portfolio) ) )
-            # weights /= np.sum(weights)
+            weights = np.random.uniform(low=-2.0, high=2.0, size=(n, len(portfolio) ) )
         else:
-            weights = np.random.uniform(low=0.0, high=1.0, size=(n, len(self.portfolio) ) )
-            # weights /= np.sum(weights)
-            
-            
-        for _ in range(n):
+            weights = np.random.uniform(low=0.0, high=1.0, size=(n, len(portfolio) ) )
+
+        for _ in tqdm.tqdm(range(n), desc="Normalizing weights", unit_scale=True, colour="green"):
             weights[_] /= np.sum(weights[_])
 
 
         p_returns = np.zeros(len(weights))
         p_risk = np.zeros(len(weights))
         sharpe_ratios = np.zeros(len(weights))
-        for i in range(n):
-            p_std_, p_returns_ = self.__cal_required_parameters(weights[i], model)
+        for i in tqdm.tqdm((range(n)), desc="Calculating parameters", unit_scale=True, colour="green"):
+            p_std_, p_returns_ = self.__cal_required_parameters(weights[i], model, portfolio)
             p_returns[i] = p_returns_
             p_risk[i] = p_std_
-            sharpe_ratios[i] = (p_returns_ - self.portfolio.risk_free_rate) / p_std_
+            sharpe_ratios[i] = (p_returns_ - portfolio.risk_free_rate) / p_std_
 
 
         data = pd.DataFrame(
@@ -176,10 +245,14 @@ class EfficientFrontier:
             }
         )
 
+        # check if there is no self.portfolio then return it too
+        if not hasattr(self, "portfolio") or stocks is not None:
+            return data, weights, portfolio
+
         return data, weights
         
 
-    def plot_sim(self, model, short=False):
+    def plot_sim(self, model, short=False, stocks=None, **kwargs):
 
         """
         Plot the efficient frontier.
@@ -190,6 +263,25 @@ class EfficientFrontier:
         short : bool, optional
             Whether to allow shorting of stocks. Default is False.
 
+
+        --------------------------------------------
+        Needed if you want to make a frontier with random stocks or without adding a portfolio
+
+        stocks : dict
+            Dictionary containing the stock names and the stock data.
+
+        **kwargs : dict
+
+            freq : str
+                Frequency of the data. Default is "Monthly".
+
+            benchmark : dict
+                Dictionary containing the benchmark Name and the benchmark data.
+
+            risk_free_rate : float
+                Risk free rate of return. Default is 0.225
+            
+
         Returns
         -------
         fig : plotly.graph_objects.Figure
@@ -197,7 +289,14 @@ class EfficientFrontier:
 
         """
 
-        data , weights = self.__simulate_frontier(model, short=short)
+        # if there is no self.portfolio then create a temporary portfolio
+        if not hasattr(self, "portfolio") or stocks is not None:
+            data, weights, portfolio = self.__simulate_frontier(model, short=short, stocks=stocks, **kwargs)
+        else:
+            data, weights = self.__simulate_frontier(model, short=short)
+            portfolio = self.portfolio
+
+        # data , weights = self.__simulate_frontier(model, short=short, **kwargs)
         p_risk = data["Risk"]
         p_expected_returns = data["Returns"]
         store_weight = weights
@@ -218,7 +317,7 @@ class EfficientFrontier:
         )
 
         template = "Standard deviation: %{x:.4f}%<br>Expected return: %{y:.4f}%"
-        for i, col in enumerate(self.portfolio.portfolio_stocks()):
+        for i, col in enumerate(portfolio.portfolio_stocks()):
             template += f"<br>{col} weight: %{{customdata[{i}]:.4f}}"
 
         fig.update_traces(
@@ -289,7 +388,7 @@ class EfficientFrontier:
         return Y_pred
 
 
-    def plot_frontier(self, short=False, model="capm"):
+    def plot_frontier(self, short=False, model="capm", stocks=None, **kwargs):
         """
         Creates a plot of the efficient frontier.
 
@@ -300,6 +399,24 @@ class EfficientFrontier:
         model : str, optional
             The model to use, by default "capm". Supported models are 'capm', 'sim'
             (If you want to use 'fff3' or 'fff5', first load the fff parameters.)
+
+        ---------------
+
+        Needed if you want to make a frontier with random stocks or without adding a portfolio
+
+        stocks : dict
+            Dictionary containing the stock names and the stock data.
+
+        **kwargs : dict
+
+            freq : str
+                Frequency of the data. Default is "Monthly".
+
+            benchmark : dict
+                Dictionary containing the benchmark Name and the benchmark data.
+
+            risk_free_rate : float
+                Risk free rate of return. Default is 0.225
 
         Returns
         -------
@@ -315,9 +432,15 @@ class EfficientFrontier:
         You have to create a Portoflio object first. Then you need to load data. Only then you can call `plot_frontier()`.
         """
 
+        if not hasattr(self, "portfolio") or stocks is not None:
+            data, weights, portfolio = self.__simulate_frontier(model, short=short, stocks=stocks, **kwargs)
+        else:
+            data, weights = self.__simulate_frontier(model, short=short)
+            portfolio = self.portfolio
 
 
-        data , weights = self.__simulate_frontier(model=model, short=short)
+
+        # data , weights = self.__simulate_frontier(model=model, short=short, **kwargs)
         data_final, _ = self.__pre_process(data=data)
 
         Y = data_final["Risk"]
@@ -332,7 +455,7 @@ class EfficientFrontier:
         sharpe_ratios = data_final["Sharpe ratio"].astype(float).values
 
         tempelate = "Risk Deviation: %{x:.4f}<br>Expected Returns: %{y:.4f}"
-        for i, name in enumerate(self.portfolio.portfolio_stocks()):
+        for i, name in enumerate(portfolio.portfolio_stocks()):
             tempelate += f"<br>{name}: %{{customdata{[i]}:.4f}}"
 
         fig = px.scatter(

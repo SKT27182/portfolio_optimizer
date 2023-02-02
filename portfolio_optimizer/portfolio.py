@@ -2,6 +2,9 @@
 import pandas as pd
 import numpy as np
 from tabulate import tabulate
+import copy
+import tqdm
+from portfolio_optimizer.style import cprint
 
 
 class Portfolio:
@@ -54,6 +57,8 @@ class Portfolio:
         None
         """
 
+        benchmark = copy.deepcopy(benchmark)
+
         self.market = list(benchmark.keys())[0]
 
         # Check whether a given benchmark have the pd.Datetime as index or not
@@ -69,6 +74,8 @@ class Portfolio:
         self.freq = freq
         if risk_free_rate is None:
             self.risk_free_rate = 0.225
+        elif isinstance(risk_free_rate, float):
+            self.risk_free_rate = risk_free_rate
         else:
             self.risk_free_rate = risk_free_rate["Close"].asfreq(self.freq, method="ffill").pct_change().dropna().mean()*100
         self.merged_stocks = self.stocks[self.market]
@@ -76,14 +83,16 @@ class Portfolio:
         self.betas = None
         self.alphas = None
         self.returns = None
+
+        cprint.print(f"Portfolio Created with {self.market} as the benchmark", "blue")
         
 
     
     def __repr__(self) -> str:
         """
-        Returns : list of stocks in the portfolio when the object is called as it is
+        prints list of stocks in the portfolio when the object is called as it is
         """
-        return f"Stocks: {list(self.stocks.keys())}"
+        return str(f"Stocks: {self.stocks.keys()}")
 
     def __str__(self):
         """
@@ -205,6 +214,9 @@ class Portfolio:
         self.stocks.update(stock_dic)
         self.__update()
 
+        # print that stock has been added
+        cprint.print(f"{list(stock_dic.keys())} has been added to the portfolio", "Magenta")
+
 
     
     def __setitem__(self, name, stock):
@@ -235,6 +247,9 @@ class Portfolio:
             stock.drop("Date", axis=1, inplace=True)
         self.stocks[name] = stock
         self.__update()
+
+        # print that stock has been added
+        cprint.print(f"{name} has been added to the portfolio", "Magenta")
         
 
     def remove_stock(self, names):
@@ -252,12 +267,13 @@ class Portfolio:
         """
         for name in names:
             if  name in [self.market]:
-                print(f"You can't remove your benchmark from the portfolio")
+                cprint.print(f"You can't remove your benchmark from the portfolio", "warning")
             elif name in self.stocks.keys():
                 self.stocks.pop(name)
                 self.__update()
+                cprint.print(f"{name} stock is removed from Portfolio", "Magenta")
             else:
-                print(f"{name} stock is not present in Portfolio")
+                cprint.print(f"{name} stock is not present in Portfolio", "warning")
         
         
 
@@ -280,13 +296,13 @@ class Portfolio:
         """
 
         if  name in [self.market]:
-            print(f"You can't remove your benchmark from the portfolio")
+            cprint.print(f"You can't remove your benchmark from the portfolio", "warning")
         elif name in self.stocks.keys():
             self.stocks.pop(name)
-            # print(f"{name} stock is removed from Portfolio")
             self.__update()
+            cprint.print(f"{name} stock is removed from Portfolio", "Magenta")
         else:
-            print(f"{name} stock is not present in Portfolio")
+            cprint.print(f"{name} stock is not present in Portfolio", "warning")
 
     
     def __getitem__(self, name):
@@ -310,7 +326,7 @@ class Portfolio:
         if name in self.stocks.keys():
             return self.stocks[name]
         else:
-            print(f"{name} stock is not present in Portfolio")
+            cprint.print(f"{name} stock is not present in Portfolio", "red")
 
 
     
@@ -583,29 +599,31 @@ class Portfolio:
 
         headers = [key for key in self.stocks.keys() if key not in [self.market]]
 
-        print("Portfolio Summary")
-        print("*****************\n")
-        print(f"Stocks in the Portfolio : {headers}")
-        print("**************************\n")
+        cprint.print("Portfolio Summary", "header")
+        cprint.print("*****************\n", "header")
+        cprint.print(f"Stocks in the Portfolio : ", "blue", end="")
+        cprint.print("*************************", "blue")
+        cprint.print({str(headers)}, "green")
+        print()
         
-        print("Beta :")
-        print("******")
-        print(tabulate(self.betas.T, headers,  tablefmt="orgtbl"))
+        cprint.print("Beta :", "blue")
+        cprint.print("******", "blue")
+        cprint.print(tabulate(self.betas.T, headers,  tablefmt="orgtbl"), "green")
         print()
 
 
-        print("Expected Returns :")
-        print("******************")
-        print(tabulate(pd.DataFrame(expected_returns).T, headers, tablefmt="orgtbl"))
+        cprint.print("Expected Returns :", "blue")
+        cprint.print("******************", "blue")
+        cprint.print(tabulate(pd.DataFrame(expected_returns).T, headers, tablefmt="orgtbl"), "green")
         print()
 
 
 
-        print("The covariance matrix is as follows")
-        print("***********************************")
-        print(tabulate(cov_matrix, headers=headers, tablefmt="orgtbl"))
+        cprint.print("The covariance matrix is as follows", "blue")
+        cprint.print("***********************************", "blue")
+        cprint.print(tabulate(cov_matrix, headers=headers, tablefmt="orgtbl"), "green")
         print()
 
-        print(f"Portfolio Returns at equals weights: {self.portfolio_expected_return(weights='equals')}")
-        print(f"Portfolio Risk at equals weights: {self.portfolio_variance(weights='equals')}")
+        cprint.print(f"Portfolio Returns at equals weights: {self.portfolio_expected_return(weights='equals')}", "MAGENTA")
+        cprint.print(f"Portfolio Risk at equals weights: {self.portfolio_variance(weights='equals')}", "MAGENTA")
         

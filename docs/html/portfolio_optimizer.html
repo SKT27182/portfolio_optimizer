@@ -580,7 +580,7 @@ Use the <cite>fit</cite> method to fit the model. Then predict the Y values give
 
 <dl class="py method">
 <dt class="sig sig-object py" id="portfolio_optimizer.frontier.EfficientFrontier.plot_frontier">
-<span class="sig-name descname"><span class="pre">plot_frontier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'capm'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.frontier.EfficientFrontier.plot_frontier" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">plot_frontier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'capm'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.frontier.EfficientFrontier.plot_frontier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a plot of the efficient frontier.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -588,6 +588,18 @@ Use the <cite>fit</cite> method to fit the model. Then predict the Y values give
 <li><p><strong>short</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to allow shorting, by default False</p></li>
 <li><p><strong>model</strong> (<em>str</em><em>, </em><em>optional</em>) – The model to use, by default “capm”. Supported models are ‘capm’, ‘sim’
 (If you want to use ‘fff3’ or ‘fff5’, first load the fff parameters.)</p></li>
+<li><p><strong>---------------</strong> – </p></li>
+<li><p><strong>portfolio</strong> (<em>Needed if you want to make a frontier with random stocks</em><em> or </em><em>without adding a</em>) – </p></li>
+<li><p><strong>stocks</strong> (<em>dict</em>) – Dictionary containing the stock names and the stock data.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – <dl class="simple">
+<dt>freq<span class="classifier">str</span></dt><dd><p>Frequency of the data. Default is “Monthly”.</p>
+</dd>
+<dt>benchmark<span class="classifier">dict</span></dt><dd><p>Dictionary containing the benchmark Name and the benchmark data.</p>
+</dd>
+<dt>risk_free_rate<span class="classifier">float</span></dt><dd><p>Risk free rate of return. Default is 0.225</p>
+</dd>
+</dl>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -608,12 +620,27 @@ Use the <cite>fit</cite> method to fit the model. Then predict the Y values give
 
 <dl class="py method">
 <dt class="sig sig-object py" id="portfolio_optimizer.frontier.EfficientFrontier.plot_sim">
-<span class="sig-name descname"><span class="pre">plot_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.frontier.EfficientFrontier.plot_sim" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">plot_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.frontier.EfficientFrontier.plot_sim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the efficient frontier.
 :param model: The model to use for calculating the expected returns. Default is “mean”.
 :type model: str
 :param short: Whether to allow shorting of stocks. Default is False.
 :type short: bool, optional</p>
+<dl class="simple">
+<dt>stocks<span class="classifier">dict</span></dt><dd><p>Dictionary containing the stock names and the stock data.</p>
+</dd>
+</dl>
+<p><a href="#id2"><span class="problematic" id="id3">**</span></a>kwargs : dict</p>
+<blockquote>
+<div><dl class="simple">
+<dt>freq<span class="classifier">str</span></dt><dd><p>Frequency of the data. Default is “Monthly”.</p>
+</dd>
+<dt>benchmark<span class="classifier">dict</span></dt><dd><p>Dictionary containing the benchmark Name and the benchmark data.</p>
+</dd>
+<dt>risk_free_rate<span class="classifier">float</span></dt><dd><p>Risk free rate of return. Default is 0.225</p>
+</dd>
+</dl>
+</div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>fig</strong> – Plotly figure object.</p>

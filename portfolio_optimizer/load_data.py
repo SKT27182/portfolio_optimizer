@@ -1,7 +1,9 @@
 # Library to load data  from data folder or yfinance
 
+from portfolio_optimizer.style import cprint
 import yfinance as yf
 import pandas as pd
+import tqdm
 
 class LoadData:
 
@@ -74,10 +76,10 @@ class LoadData:
         if exchange.lower() == "nse":
             return pd.read_csv(url_nse)[["SYMBOL","NAME OF COMPANY"]]
         elif exchange.lower() == "bse":
-            print("BSE not supported yet. You can use NSE instead or check the companies listed there for the returned url")
+            cprint.print("BSE not supported yet. You can use NSE instead or check the companies listed there for the returned url", "red")
             return url_bse
         elif exchange.lower() == "nasdaq":
-            print("Nasdaq not supported yet. You can use NSE instead or check the companies listed there for the returned url")
+            cprint.print("Nasdaq not supported yet. You can use NSE instead or check the companies listed there for the returned url", "red")
             return url_nasdaq
 
 
@@ -101,25 +103,20 @@ class LoadData:
 
         if exchange.lower() == "nse":
             try:
-                return self.get_ticker_names(exchange).loc[self.get_ticker_names(exchange)["SYMBOL"]==ticker]["NAME OF COMPANY"].values[0]
+                cprint.print(self.get_ticker_names(exchange).loc[self.get_ticker_names(exchange)["SYMBOL"]==ticker]["NAME OF COMPANY"].values[0], "blue")
             except:
-                return "Not Found"
+                cprint.print("Not Found", "fail")
         elif exchange.lower() == "bse":
             try:
-                return yf.Ticker(ticker).info['longName']
-            except:
-                return yf.Ticker(ticker).info["shortName"]
+                cprint.print(yf.Ticker(ticker).info['longName'], "blue")
+            except TypeError:
+                cprint.print("Not Found", "fail")
         elif exchange.lower() == "nasdaq":
             try:
-                return yf.Ticker(ticker).info['longName']
-            except:
-                return yf.Ticker(ticker).info["shortName"]
-        else:
-            try:
-                return yf.Ticker(ticker).info['longName']
-            except:
-                return yf.Ticker(ticker).info["shortName"]
-
+                cprint.print(yf.Ticker(ticker).info['longName'], "blue")
+            except TypeError:
+                cprint.print("Not Found", "fail")
+                
         
 
     def load_data(self, tickers, exchange="nse"):
@@ -159,13 +156,13 @@ class LoadData:
             tickers = tickers
 
         for ticker in tickers:
-            print(f"{ticker} Downloading...")
+            cprint.print(f"Downloading...{ticker}", "green")
             data_ = yf.download(ticker, period="max")
             if data_.shape[0] !=0:
                 data_ = data_.dropna()
                 data.update({ticker:data_})
             else:
-                print(f"{ticker} Ticker Not Found.")
+                cprint.print(f"{ticker} Ticker Not Found.", "fail")
             
         return data
 
@@ -187,5 +184,5 @@ class LoadData:
         """
         for ticker in data.keys():
             data[ticker].to_csv(f"{path}/{ticker}.csv")
-            print(f"{ticker} Saved.")
+            cprint.print(f"{ticker} Saved.", "blue")
         

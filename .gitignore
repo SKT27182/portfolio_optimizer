@@ -4,3 +4,4 @@ portfolio_optimizer/__pycache__/
 dist/
 tests/.pytest_cache/
 tests/__pycache__/
+.vscode

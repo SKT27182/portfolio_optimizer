@@ -3,6 +3,7 @@
 import numpy as np
 from portfolio_optimizer.portfolio import Portfolio
 from scipy.optimize import minimize
+from portfolio_optimizer.style import cprint
 
 class Optimizer:
 
@@ -114,18 +115,18 @@ class Optimizer:
         portfolio_expected_return = -res.fun
 
         if res["success"]:
-            print("Optimized successfully.")
+            cprint.print("Optimized successfully.", "green")
         else:
-            print(f"Optimization failed. {res['message']}")
-            print("Here are the last results:")
+            cprint.print(f"Optimization failed. {res['message']}", "fail")
+            cprint.print("Here are the last results:", "fail")
         
-        print(f"Expected Portfolio's Returns : {portfolio_expected_return:.4f}")
-        print(f"Risk : {std:.4f}")
+        cprint.print(f"Expected Portfolio's Returns : {portfolio_expected_return:.4f}", "green")
+        cprint.print(f"Risk : {std:.4f}", "red")
 
-        print("Expected weights:")
-        print("-" * 20)
+        cprint.print("Expected weights:", "green")
+        cprint.print("-" * 20, "green")
         for i, stock in enumerate(self.portfolio.portfolio_stocks()):
-            print(f"{[stock]}: {weights[i]*100:.2f}%")
+            cprint.print(f"{[stock]}: {weights[i]*100:.2f}%", "green")
 
         
 
