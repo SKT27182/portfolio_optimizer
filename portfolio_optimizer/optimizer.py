@@ -5,6 +5,7 @@ from portfolio_optimizer.portfolio import Portfolio
 from scipy.optimize import minimize
 from portfolio_optimizer.style import cprint
 
+
 class Optimizer:
 
     """
@@ -26,13 +27,13 @@ class Optimizer:
         Calculate the expected return of the portfolio
     optimize_portfolio(model, risk, short=False)
         Optimize the portfolio
-        
+
     """
 
     def __init__(self) -> None:
         pass
 
-    def add_portfolio(self, portfolio:Portfolio):
+    def add_portfolio(self, portfolio: Portfolio):
         """
         Add the portfolio to optimize
 
@@ -43,8 +44,7 @@ class Optimizer:
         """
         self.portfolio = portfolio
 
-
-    def model(self,  weights, model):
+    def model(self, weights, model):
 
         """
         CAPM Model
@@ -63,17 +63,14 @@ class Optimizer:
         float
             Return of the expected return of the portfolio
         """
-        
-        return self.portfolio.portfolio_expected_return(weights=weights, model=model)
-        
 
+        return self.portfolio.portfolio_expected_return(weights=weights, model=model)
 
     def optimize_portfolio(self, model, max_risk, short=False):
 
-
         """
         Optimize the portfolio
-        
+
 
         Parameters
         ----------
@@ -91,7 +88,7 @@ class Optimizer:
 
         """
 
-        ini_weights = [1/len(self.portfolio)] * len(self.portfolio)
+        ini_weights = [1 / len(self.portfolio)] * len(self.portfolio)
 
         if short:
             bounds = tuple([(-2, 2)] * len(self.portfolio))
@@ -99,15 +96,24 @@ class Optimizer:
             bounds = tuple([(0, 1)] * len(self.portfolio))
 
         def objective_function(weights):
-                return -self.model(weights=weights, model=model)
+            return -self.model(weights=weights, model=model)
 
-        
         cons = (
-            {'type': 'eq', 'fun': lambda x: sum(x) - 1},
-            {'type': 'ineq', 'fun': lambda x:max_risk - self.portfolio.portfolio_std(weights=x) }
-                )
+            {"type": "eq", "fun": lambda x: sum(x) - 1},
+            {
+                "type": "ineq",
+                "fun": lambda x: max_risk - self.portfolio.portfolio_std(weights=x),
+            },
+        )
 
-        res = minimize(objective_function, ini_weights, method='SLSQP', bounds=bounds, constraints=cons, tol=0.0001)
+        res = minimize(
+            objective_function,
+            ini_weights,
+            method="SLSQP",
+            bounds=bounds,
+            constraints=cons,
+            tol=0.0001,
+        )
 
         weights = res["x"]
         var = self.portfolio.portfolio_variance(weights=res.x)
@@ -119,16 +125,16 @@ class Optimizer:
         else:
             cprint.print(f"Optimization failed. {res['message']}", "fail")
             cprint.print("Here are the last results:", "fail")
-        
-        cprint.print(f"Expected Portfolio's Returns : {portfolio_expected_return:.4f}", "green")
+
+        cprint.print(
+            f"Expected Portfolio's Returns : {portfolio_expected_return:.4f}", "green"
+        )
         cprint.print(f"Risk : {std:.4f}", "red")
 
         cprint.print("Expected weights:", "green")
         cprint.print("-" * 20, "green")
         for i, stock in enumerate(self.portfolio.portfolio_stocks()):
             cprint.print(f"{[stock]}: {weights[i]*100:.2f}%", "green")
-
-        
 
         return {
             "weights": weights,

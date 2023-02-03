@@ -5,12 +5,12 @@ import yfinance as yf
 import pandas as pd
 import tqdm
 
-class LoadData:
 
+class LoadData:
 
     """
     Load the data from the tickers
-    
+
     Load Index data from nasdaq only, For Indian Index price is in INR (mostly)
 
     Few Important Tickers are :
@@ -42,7 +42,7 @@ class LoadData:
 
     # Indian NSE (National Stock Exchange)
     | RELIANCE.NS | Reliance Industries | INR |
-    | TCS.NS | Tata Consultancy Services | INR | 
+    | TCS.NS | Tata Consultancy Services | INR |
     | HDFCBANK.NS | HDFC Bank | INR |
 
     # Indian BSE (Bombay Stock Exchange)
@@ -50,8 +50,6 @@ class LoadData:
     | TCS.BO | Tata Consultancy Services | INR |
     | HDFCBANK.BO | HDFC Bank | INR |
     """
-
-
 
     def __init__(self) -> None:
         pass
@@ -74,14 +72,19 @@ class LoadData:
         url_nasdaq = "https://www.nasdaq.com/market-activity/stocks/screener"
 
         if exchange.lower() == "nse":
-            return pd.read_csv(url_nse)[["SYMBOL","NAME OF COMPANY"]]
+            return pd.read_csv(url_nse)[["SYMBOL", "NAME OF COMPANY"]]
         elif exchange.lower() == "bse":
-            cprint.print("BSE not supported yet. You can use NSE instead or check the companies listed there for the returned url", "red")
+            cprint.print(
+                "BSE not supported yet. You can use NSE instead or check the companies listed there for the returned url",
+                "red",
+            )
             return url_bse
         elif exchange.lower() == "nasdaq":
-            cprint.print("Nasdaq not supported yet. You can use NSE instead or check the companies listed there for the returned url", "red")
+            cprint.print(
+                "Nasdaq not supported yet. You can use NSE instead or check the companies listed there for the returned url",
+                "red",
+            )
             return url_nasdaq
-
 
     def get_company_name(self, ticker, exchange):
         """
@@ -103,21 +106,26 @@ class LoadData:
 
         if exchange.lower() == "nse":
             try:
-                cprint.print(self.get_ticker_names(exchange).loc[self.get_ticker_names(exchange)["SYMBOL"]==ticker]["NAME OF COMPANY"].values[0], "blue")
+                cprint.print(
+                    self.get_ticker_names(exchange)
+                    .loc[self.get_ticker_names(exchange)["SYMBOL"] == ticker][
+                        "NAME OF COMPANY"
+                    ]
+                    .values[0],
+                    "blue",
+                )
             except:
                 cprint.print("Not Found", "fail")
         elif exchange.lower() == "bse":
             try:
-                cprint.print(yf.Ticker(ticker).info['longName'], "blue")
+                cprint.print(yf.Ticker(ticker).info["longName"], "blue")
             except TypeError:
                 cprint.print("Not Found", "fail")
         elif exchange.lower() == "nasdaq":
             try:
-                cprint.print(yf.Ticker(ticker).info['longName'], "blue")
+                cprint.print(yf.Ticker(ticker).info["longName"], "blue")
             except TypeError:
                 cprint.print("Not Found", "fail")
-                
-        
 
     def load_data(self, tickers, exchange="nse"):
         """
@@ -129,7 +137,7 @@ class LoadData:
         ----------
         tickers : list
             List of the tickers to load the data from
-            
+
         exchange : str
             Exchange to get the ticker name from
 
@@ -149,21 +157,21 @@ class LoadData:
         """
         data = {}
         if exchange.lower() == "nse":
-            tickers = [_+".NS" for _ in tickers]
+            tickers = [_ + ".NS" for _ in tickers]
         elif exchange.lower() == "bse":
-            tickers = [_+".BO" for _ in tickers]
+            tickers = [_ + ".BO" for _ in tickers]
         elif exchange.lower() == "nasdaq":
             tickers = tickers
 
         for ticker in tickers:
             cprint.print(f"Downloading...{ticker}", "green")
             data_ = yf.download(ticker, period="max")
-            if data_.shape[0] !=0:
+            if data_.shape[0] != 0:
                 data_ = data_.dropna()
-                data.update({ticker:data_})
+                data.update({ticker: data_})
             else:
                 cprint.print(f"{ticker} Ticker Not Found.", "fail")
-            
+
         return data
 
     def save_data(self, data, path):
@@ -185,4 +193,3 @@ class LoadData:
         for ticker in data.keys():
             data[ticker].to_csv(f"{path}/{ticker}.csv")
             cprint.print(f"{ticker} Saved.", "blue")
-        

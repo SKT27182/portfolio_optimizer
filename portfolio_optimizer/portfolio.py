@@ -8,7 +8,7 @@ from portfolio_optimizer.style import cprint
 
 
 class Portfolio:
-    def __init__(self, freq,  benchmark: dict, risk_free_rate=None) -> None:
+    def __init__(self, freq, benchmark: dict, risk_free_rate=None) -> None:
         """
         Initializes the Portfolio class
 
@@ -69,7 +69,6 @@ class Portfolio:
             benchmark[self.market].index = pd.to_datetime(benchmark[self.market].index)
             benchmark[self.market].drop("Date", axis=1, inplace=True)
 
-
         self.stocks = benchmark
         self.freq = freq
         if risk_free_rate is None:
@@ -77,17 +76,28 @@ class Portfolio:
         elif isinstance(risk_free_rate, float):
             self.risk_free_rate = risk_free_rate
         else:
-            self.risk_free_rate = risk_free_rate["Close"].asfreq(self.freq, method="ffill").pct_change().dropna().mean()*100
+            self.risk_free_rate = (
+                risk_free_rate["Close"]
+                .asfreq(self.freq, method="ffill")
+                .pct_change()
+                .dropna()
+                .mean()
+                * 100
+            )
         self.merged_stocks = self.stocks[self.market]
-        self.market_return = self.merged_stocks.asfreq(self.freq, method="ffill").pct_change().dropna()["Close"].mean()*100 # monthly returns of the market
+        self.market_return = (
+            self.merged_stocks.asfreq(self.freq, method="ffill")
+            .pct_change()
+            .dropna()["Close"]
+            .mean()
+            * 100
+        )  # monthly returns of the market
         self.betas = None
         self.alphas = None
         self.returns = None
 
         cprint.print(f"Portfolio Created with {self.market} as the benchmark", "blue")
-        
 
-    
     def __repr__(self) -> str:
         """
         prints list of stocks in the portfolio when the object is called as it is
@@ -104,7 +114,7 @@ class Portfolio:
         """
         Returns the number of stocks in the Portfolio except the benchmark
         """
-        return len(self.stocks)-1
+        return len(self.stocks) - 1
 
     def __update(self):
         """
@@ -126,7 +136,7 @@ class Portfolio:
         self.betas = self.cal_beta()
         self.alphas = self.cal_alpha()
 
-    def portfolio_stocks(self ):
+    def portfolio_stocks(self):
         return [key for key in self.stocks.keys() if key not in [self.market]]
 
     def merge_dfs(self, stocks=None, join="inner", columns=["Close"]):
@@ -142,7 +152,7 @@ class Portfolio:
             How to join the dataframes, by default "inner"
         columns : str, optional
             Which columns to merge, by default "Close"
-            
+
         Returns
         -------
         pd.DataFrame
@@ -155,7 +165,7 @@ class Portfolio:
 
         df_names = stocks.keys()
         dfs = stocks.values()
-        
+
         dfs = [df[columns] for df in dfs]
         df = pd.concat(dfs, axis=1, join=join)
         if df_names:
@@ -185,7 +195,7 @@ class Portfolio:
         else:
             freq = freq
 
-        self.returns = df.asfreq(freq=freq , method="ffill").pct_change().dropna()
+        self.returns = df.asfreq(freq=freq, method="ffill").pct_change().dropna()
         return self.returns
 
     def add_stock(self, stock_dic):
@@ -215,10 +225,10 @@ class Portfolio:
         self.__update()
 
         # print that stock has been added
-        cprint.print(f"{list(stock_dic.keys())} has been added to the portfolio", "Magenta")
+        cprint.print(
+            f"{list(stock_dic.keys())} has been added to the portfolio", "Magenta"
+        )
 
-
-    
     def __setitem__(self, name, stock):
         """
         Adds a stock to the dictionary
@@ -250,7 +260,6 @@ class Portfolio:
 
         # print that stock has been added
         cprint.print(f"{name} has been added to the portfolio", "Magenta")
-        
 
     def remove_stock(self, names):
         """
@@ -266,16 +275,16 @@ class Portfolio:
         None
         """
         for name in names:
-            if  name in [self.market]:
-                cprint.print(f"You can't remove your benchmark from the portfolio", "warning")
+            if name in [self.market]:
+                cprint.print(
+                    f"You can't remove your benchmark from the portfolio", "warning"
+                )
             elif name in self.stocks.keys():
                 self.stocks.pop(name)
                 self.__update()
                 cprint.print(f"{name} stock is removed from Portfolio", "Magenta")
             else:
                 cprint.print(f"{name} stock is not present in Portfolio", "warning")
-        
-        
 
     def __delitem__(self, name):
         """
@@ -295,8 +304,10 @@ class Portfolio:
         del obj["apple"]
         """
 
-        if  name in [self.market]:
-            cprint.print(f"You can't remove your benchmark from the portfolio", "warning")
+        if name in [self.market]:
+            cprint.print(
+                f"You can't remove your benchmark from the portfolio", "warning"
+            )
         elif name in self.stocks.keys():
             self.stocks.pop(name)
             self.__update()
@@ -304,7 +315,6 @@ class Portfolio:
         else:
             cprint.print(f"{name} stock is not present in Portfolio", "warning")
 
-    
     def __getitem__(self, name):
         """
         Returns the stock dataframe
@@ -327,9 +337,6 @@ class Portfolio:
             return self.stocks[name]
         else:
             cprint.print(f"{name} stock is not present in Portfolio", "red")
-
-
-    
 
     def cal_beta(self, df=None, benchmark="snp500", freq="M"):
         """
@@ -354,12 +361,14 @@ class Portfolio:
             freq = freq
             returns = self.cal_returns(df, freq=freq)
             benchmark = benchmark
-            
+
         betas = pd.DataFrame()
         for col in returns.columns:
             if col != benchmark:
-                betas.loc[col, "beta"] = returns[col].corr(returns[benchmark]) * (returns[col].std()/returns[benchmark].std())
-        
+                betas.loc[col, "beta"] = returns[col].corr(returns[benchmark]) * (
+                    returns[col].std() / returns[benchmark].std()
+                )
+
         self.betas = betas
         return betas
 
@@ -388,16 +397,18 @@ class Portfolio:
             returns = self.cal_returns(df, freq=freq)
             betas = self.cal_beta(df, benchmark=benchmark, freq=freq)
             benchmark = benchmark
-            
 
         alphas = pd.DataFrame()
         for col in returns.columns:
             if col != benchmark:
-                alphas.loc[col, "alpha"] = returns[col].mean() - betas.loc[col, "beta"] * returns[benchmark].mean()
+                alphas.loc[col, "alpha"] = (
+                    returns[col].mean()
+                    - betas.loc[col, "beta"] * returns[benchmark].mean()
+                )
 
         self.alphas = alphas
         return alphas
-    
+
     def cov_matrix(self, df=None, freq="M"):
         """
         Calculates the covariance matrix of a dataframe
@@ -409,7 +420,7 @@ class Portfolio:
         -------
         pd.DataFrame
             Covariance matrix
-            
+
         """
         if df is None:
             df = self.merged_stocks
@@ -418,23 +429,25 @@ class Portfolio:
         else:
             freq = freq
             returns = self.cal_returns(df, freq=freq)
-        
+
         return returns.cov()
 
-    def expected_returns(self, risk_free_rate=0.225, market_return=0.98,  beta=None, model="CAPM"):
-        
+    def expected_returns(
+        self, risk_free_rate=0.225, market_return=0.98, beta=None, model="CAPM"
+    ):
+
         """
-        
+
         Parameters
         ----------
         risk_free_rate : float
-        
-        
+
+
         market_return : float
-        
-        
+
+
         beta : pd.DataFrame, optional
-            Beta of the stocks, by default None 
+            Beta of the stocks, by default None
 
 
         model : str, optional
@@ -454,24 +467,31 @@ class Portfolio:
         if beta is None:
             if self.betas.shape[0] == 0:
                 self.betas = self.cal_beta()
-            beta = np.array(self.betas['beta']) 
+            beta = np.array(self.betas["beta"])
             risk_free_rate = self.risk_free_rate
             market_return = self.market_return
             if self.alphas.shape[0] == 0:
                 self.alphas = self.cal_alpha()
-            alpha = np.array(self.alphas['alpha'])
+            alpha = np.array(self.alphas["alpha"])
 
         else:
             freq = freq
 
         if model.upper() == "CAPM":
-            excepted_returns = risk_free_rate + np.multiply(beta, (market_return - risk_free_rate))
+            excepted_returns = risk_free_rate + np.multiply(
+                beta, (market_return - risk_free_rate)
+            )
         elif model.upper() == "SIM":
-            excepted_returns = alpha + risk_free_rate + np.multiply(beta, (market_return - risk_free_rate))
+            excepted_returns = (
+                alpha
+                + risk_free_rate
+                + np.multiply(beta, (market_return - risk_free_rate))
+            )
         return excepted_returns
 
-
-    def portfolio_expected_return(self, weights="equals", expected_returns=None, model="CAPM"):
+    def portfolio_expected_return(
+        self, weights="equals", expected_returns=None, model="CAPM"
+    ):
         """
         Calculates the portfolio return
 
@@ -496,12 +516,12 @@ class Portfolio:
         -------
         obj.portfolio_return(weights, expected_returns)
         """
-        
+
         if expected_returns is None:
             expected_returns = self.expected_returns(model=model)
-        
+
         if type(weights) == str:
-            weights = np.array([1/len(expected_returns)]*len(expected_returns))
+            weights = np.array([1 / len(expected_returns)] * len(expected_returns))
         else:
             weights = weights
 
@@ -530,15 +550,19 @@ class Portfolio:
         obj.portfolio_variance(weights, cov_matrix)
         """
         if cov_matrix is None:
-            cov_matrix = self.cov_matrix().drop(columns=self.market).drop(index=self.market).to_numpy()
+            cov_matrix = (
+                self.cov_matrix()
+                .drop(columns=self.market)
+                .drop(index=self.market)
+                .to_numpy()
+            )
         else:
             cov_matrix = cov_matrix.to_numpy()
 
-        
         if isinstance(weights, str):
-            weights = np.array([1/len(cov_matrix)]*len(cov_matrix))
+            weights = np.array([1 / len(cov_matrix)] * len(cov_matrix))
 
-        return np.dot(weights, np.dot(cov_matrix, weights))*100
+        return np.dot(weights, np.dot(cov_matrix, weights)) * 100
 
     def portfolio_std(self, weights="equals", cov_matrix=None):
         """
@@ -565,7 +589,7 @@ class Portfolio:
 
         return np.sqrt(self.portfolio_variance(weights, cov_matrix))
 
-    def portfolio_summary(self,  expected_returns=None, cov_matrix=None):
+    def portfolio_summary(self, expected_returns=None, cov_matrix=None):
         """
         Calculates the portfolio summary
 
@@ -593,7 +617,9 @@ class Portfolio:
         if expected_returns is None:
             expected_returns = self.expected_returns()
         if cov_matrix is None:
-            cov_matrix = self.cov_matrix().drop(columns=self.market).drop(index=self.market)
+            cov_matrix = (
+                self.cov_matrix().drop(columns=self.market).drop(index=self.market)
+            )
         else:
             cov_matrix = cov_matrix
 
@@ -605,25 +631,30 @@ class Portfolio:
         cprint.print("*************************", "blue")
         cprint.print({str(headers)}, "green")
         print()
-        
+
         cprint.print("Beta :", "blue")
         cprint.print("******", "blue")
-        cprint.print(tabulate(self.betas.T, headers,  tablefmt="orgtbl"), "green")
+        cprint.print(tabulate(self.betas.T, headers, tablefmt="orgtbl"), "green")
         print()
-
 
         cprint.print("Expected Returns :", "blue")
         cprint.print("******************", "blue")
-        cprint.print(tabulate(pd.DataFrame(expected_returns).T, headers, tablefmt="orgtbl"), "green")
+        cprint.print(
+            tabulate(pd.DataFrame(expected_returns).T, headers, tablefmt="orgtbl"),
+            "green",
+        )
         print()
-
-
 
         cprint.print("The covariance matrix is as follows", "blue")
         cprint.print("***********************************", "blue")
         cprint.print(tabulate(cov_matrix, headers=headers, tablefmt="orgtbl"), "green")
         print()
 
-        cprint.print(f"Portfolio Returns at equals weights: {self.portfolio_expected_return(weights='equals')}", "MAGENTA")
-        cprint.print(f"Portfolio Risk at equals weights: {self.portfolio_variance(weights='equals')}", "MAGENTA")
-        
+        cprint.print(
+            f"Portfolio Returns at equals weights: {self.portfolio_expected_return(weights='equals')}",
+            "MAGENTA",
+        )
+        cprint.print(
+            f"Portfolio Risk at equals weights: {self.portfolio_variance(weights='equals')}",
+            "MAGENTA",
+        )

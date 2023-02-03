@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "portfolio-optimizer0"
-version = "0.3.1"
+version = "0.2.3"
 description = "A library for Portfolio management and optimization"
 readme = "README.md"
 authors = [{ name = "Shailja Kant Tiwari", email = "shailjakant2000@gmail.com" }]
@@ -23,7 +23,8 @@ dependencies = [
     "plotly",
     "yfinance",
     "scipy",
-    "tabulate"
+    "tabulate",
+    "tqdm"
 ]
 requires-python = ">=3.7"
 
@@ -31,6 +32,6 @@ requires-python = ">=3.7"
 download = []
 
 [project.urls]
-Homepage = "https://github.com/shailjakant-3245/portfolio_optimizer.git"
-repository = "https://github.com/shailjakant-3245/portfolio_optimizer.git"
-documentation = "https://shailjakant-3245.github.io/portfolio_optimizer/"
+Homepage = "https://github.com/skt27182/portfolio_optimizer.git"
+repository = "https://github.com/skt27182/portfolio_optimizer.git"
+documentation = "https://skt27182.github.io/portfolio_optimizer"

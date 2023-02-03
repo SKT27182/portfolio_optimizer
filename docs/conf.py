@@ -10,8 +10,8 @@ project = 'portfolio_optimizer'
 copyright = '2023, Shailja Kant Tiwari'
 author = 'Shailja Kant Tiwari'
 
-version = '0.1.1\u200b'
-release = '0.1.1\u200b'
+version = '0.2.3\u200b'
+release = '0.2.3\u200b'
 
 import os
 import sys

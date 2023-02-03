@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import plotly.offline as py
 import tqdm
+
 py.init_notebook_mode(connected=True)
 
 import numpy as np
@@ -85,9 +86,9 @@ class EfficientFrontier:
     def __init__(self):
         pass
 
-    def add_portfolio(self, portfolio:Portfolio):
+    def add_portfolio(self, portfolio: Portfolio):
         """
-        
+
         Parameters
         ----------
         portfolio : Portfolio
@@ -96,7 +97,7 @@ class EfficientFrontier:
         Returns
         -------
         None, just add the portfolio to the EfficientFrontier object.
-        
+
         """
         self.portfolio = portfolio
 
@@ -130,11 +131,10 @@ class EfficientFrontier:
         """
 
         temp = Portfolio(**kwargs)
-        
+
         temp.add_stock(stock_dic=stocks)
 
         return temp
-
 
     def __cal_required_parameters(self, weights, model, portfolio):
 
@@ -151,7 +151,7 @@ class EfficientFrontier:
 
         portfolio : Portfolio
             Portfolio object.
-            
+
 
         Returns
         -------
@@ -204,10 +204,8 @@ class EfficientFrontier:
 
         """
 
-
-
-        # check if portfolio is added or not and 
-        # check also that what if user want to make a 
+        # check if portfolio is added or not and
+        # check also that what if user want to make a
         # frontier of different stocks after adding a portfolio
         # if not then make a temporray portfolio
         if not hasattr(self, "portfolio") or stocks is not None:
@@ -215,27 +213,30 @@ class EfficientFrontier:
         else:
             portfolio = self.portfolio
 
-
         n = 7000
 
         if short:
-            weights = np.random.uniform(low=-2.0, high=2.0, size=(n, len(portfolio) ) )
+            weights = np.random.uniform(low=-2.0, high=2.0, size=(n, len(portfolio)))
         else:
-            weights = np.random.uniform(low=0.0, high=1.0, size=(n, len(portfolio) ) )
+            weights = np.random.uniform(low=0.0, high=1.0, size=(n, len(portfolio)))
 
-        for _ in tqdm.tqdm(range(n), desc="Normalizing weights", unit_scale=True, colour="green"):
+        for _ in tqdm.tqdm(
+            range(n), desc="Normalizing weights", unit_scale=True, colour="green"
+        ):
             weights[_] /= np.sum(weights[_])
-
 
         p_returns = np.zeros(len(weights))
         p_risk = np.zeros(len(weights))
         sharpe_ratios = np.zeros(len(weights))
-        for i in tqdm.tqdm((range(n)), desc="Calculating parameters", unit_scale=True, colour="green"):
-            p_std_, p_returns_ = self.__cal_required_parameters(weights[i], model, portfolio)
+        for i in tqdm.tqdm(
+            (range(n)), desc="Calculating parameters", unit_scale=True, colour="green"
+        ):
+            p_std_, p_returns_ = self.__cal_required_parameters(
+                weights[i], model, portfolio
+            )
             p_returns[i] = p_returns_
             p_risk[i] = p_std_
             sharpe_ratios[i] = (p_returns_ - portfolio.risk_free_rate) / p_std_
-
 
         data = pd.DataFrame(
             {
@@ -250,7 +251,6 @@ class EfficientFrontier:
             return data, weights, portfolio
 
         return data, weights
-        
 
     def plot_sim(self, model, short=False, stocks=None, **kwargs):
 
@@ -280,7 +280,7 @@ class EfficientFrontier:
 
             risk_free_rate : float
                 Risk free rate of return. Default is 0.225
-            
+
 
         Returns
         -------
@@ -291,7 +291,9 @@ class EfficientFrontier:
 
         # if there is no self.portfolio then create a temporary portfolio
         if not hasattr(self, "portfolio") or stocks is not None:
-            data, weights, portfolio = self.__simulate_frontier(model, short=short, stocks=stocks, **kwargs)
+            data, weights, portfolio = self.__simulate_frontier(
+                model, short=short, stocks=stocks, **kwargs
+            )
         else:
             data, weights = self.__simulate_frontier(model, short=short)
             portfolio = self.portfolio
@@ -302,30 +304,30 @@ class EfficientFrontier:
         store_weight = weights
 
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=np.array(p_risk), y=p_expected_returns, mode='markers', name="Portfolio", customdata=store_weight))
+        fig.add_trace(
+            go.Scatter(
+                x=np.array(p_risk),
+                y=p_expected_returns,
+                mode="markers",
+                name="Portfolio",
+                customdata=store_weight,
+            )
+        )
 
         fig.update_layout(
             title="Efficient frontier",
             xaxis_title="Standard Deviation",
             yaxis_title="Expected Returns",
-            font=dict(
-                family="Courier New, monospace",
-                size=18,
-                color="#7f7f7f"
-            ), 
-            
+            font=dict(family="Courier New, monospace", size=18, color="#7f7f7f"),
         )
 
         template = "Standard deviation: %{x:.4f}%<br>Expected return: %{y:.4f}%"
         for i, col in enumerate(portfolio.portfolio_stocks()):
             template += f"<br>{col} weight: %{{customdata[{i}]:.4f}}"
 
-        fig.update_traces(
-            hovertemplate=template
-        )
+        fig.update_traces(hovertemplate=template)
 
         fig.show()
-
 
     def __pre_process(self, data):
 
@@ -361,7 +363,6 @@ class EfficientFrontier:
         # data_final = self.__remove_outliers(data_new, "Returns_Change")
         return data_new, index
 
-
     def __fit(self, X, Y, order=3):
 
         """
@@ -386,7 +387,6 @@ class EfficientFrontier:
         Y_pred = cf.predict(X)
 
         return Y_pred
-
 
     def plot_frontier(self, short=False, model="capm", stocks=None, **kwargs):
         """
@@ -428,17 +428,17 @@ class EfficientFrontier:
         >>> ef.plot_frontier()
         Notes
         -----
-        
+
         You have to create a Portoflio object first. Then you need to load data. Only then you can call `plot_frontier()`.
         """
 
         if not hasattr(self, "portfolio") or stocks is not None:
-            data, weights, portfolio = self.__simulate_frontier(model, short=short, stocks=stocks, **kwargs)
+            data, weights, portfolio = self.__simulate_frontier(
+                model, short=short, stocks=stocks, **kwargs
+            )
         else:
             data, weights = self.__simulate_frontier(model, short=short)
             portfolio = self.portfolio
-
-
 
         # data , weights = self.__simulate_frontier(model=model, short=short, **kwargs)
         data_final, _ = self.__pre_process(data=data)
@@ -477,11 +477,8 @@ class EfficientFrontier:
             ),
         )
 
-        
-        
         # Update the color bar name
         fig.update_coloraxes(colorbar_title_text="Sharpe ratio")
 
         fig.show()
         return fig
-
