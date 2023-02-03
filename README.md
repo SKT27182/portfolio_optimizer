@@ -75,8 +75,8 @@ Expected weights:
 
 ## More Examples
 
-For more detailed go through of the library, please refer to the notebook [Walk through portfolio_optimizer](https://github.com/shailjakant-3245/portfolio_optimizer/blob/main/go_through_portfolio_optimizer.ipynb)
+For more detailed go through of the library, please refer to the notebook [Walk through portfolio_optimizer](https://github.com/SKT27182/portfolio_optimizer/blob/main/go_through_portfolio_optimizer.ipynb)
 
 ## Documentation
 
-The documentation is available at [Documentation](https://shailjakant-3245.github.io/portfolio_optimizer/)
+The documentation is available at [Documentation](https://SKT27182.github.io/portfolio_optimizer/)
