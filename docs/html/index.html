@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Welcome to portfolio_optimizer! &#8212; portfolio_optimizer 0.2.6​ documentation</title>
+    <title>Welcome to portfolio_optimizer! &#8212; portfolio_optimizer 0.3.2​ documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
@@ -30,7 +30,7 @@
         <li class="right" >
           <a href="modules.html" title="portfolio_optimizer"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">portfolio_optimizer 0.2.6​ documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">portfolio_optimizer 0.3.2​ documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Welcome to portfolio_optimizer!</a></li> 
       </ul>
     </div>  
@@ -55,7 +55,8 @@
 <section id="portfolio-optimizer">
 <h1>portfolio_optimizer<a class="headerlink" href="#portfolio-optimizer" title="Permalink to this heading">¶</a></h1>
 <a class="reference external image-reference" href="https://badge.fury.io/py/portfolio-optimizer0"><img alt="PyPI version" src="https://badge.fury.io/py/portfolio-optimizer0.svg" /></a>
-<a class="reference external image-reference" href="https://pepy.tech/project/portfolio-optimizer0"><img alt="Downloads" src="https://static.pepy.tech/badge/portfolio-optimizer0" /></a>
+<a class="reference external image-reference" href="https://pepy.tech/project/portfolio-optimizer0"><img alt="Downloads" src="https://static.pepy.tech/personalized-badge/portfolio-optimizer0?period=total&amp;units=none&amp;left_color=grey&amp;right_color=brightgreen&amp;left_text=Downloads" /></a>
+<p><span class="raw-html-m2r"><!-- [![Downloads](https://static.pepy.tech/badge/portfolio-optimizer0)](https://pepy.tech/project/portfolio-optimizer0) --></span></p>
 <p>A small python library for analysis of historical data of stocks. Especially for portfolio management and optimization.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
@@ -80,7 +81,7 @@
 
 <span class="c1"># loading the data from NSE exchange you can use BSE also</span>
 <span class="n">ld</span> <span class="o">=</span> <span class="n">LoadData</span><span class="p">()</span>
-<span class="n">data_dic</span> <span class="o">=</span> <span class="n">ld</span><span class="o">.</span><span class="n">load_data</span><span class="p">([</span><span class="s1">&#39;HDFCBANK&#39;</span><span class="p">,</span> <span class="s1">&#39;RELIANCE&#39;</span><span class="p">,</span> <span class="s1">&#39;TCS&#39;</span><span class="p">,</span> <span class="s1">&#39;INFY&#39;</span><span class="p">,</span> <span class="s1">&#39;BAJAJ-AUTO&#39;</span><span class="p">,</span> <span class="s1">&#39;TATAMOTORS&#39;</span><span class="p">],</span> <span class="s1">&#39;NSE&#39;</span><span class="p">)</span>
+<span class="n">data_dic</span> <span class="o">=</span> <span class="n">ld</span><span class="o">.</span><span class="n">load_data</span><span class="p">([</span><span class="s1">&#39;HDFCBANK&#39;</span><span class="p">,</span> <span class="s1">&#39;RELIANCE&#39;</span><span class="p">,</span> <span class="s1">&#39;INFY&#39;</span><span class="p">,</span> <span class="s1">&#39;BAJAJ-AUTO&#39;</span><span class="p">,</span> <span class="s1">&#39;TATAMOTORS&#39;</span><span class="p">],</span> <span class="s1">&#39;NSE&#39;</span><span class="p">)</span>
 
 <span class="c1"># loading the benchmark separately, Indices are always downloaded from nasdaq</span>
 <span class="n">benchmark</span> <span class="o">=</span> <span class="n">ld</span><span class="o">.</span><span class="n">load_data</span><span class="p">([</span><span class="s1">&#39;^NSEI&#39;</span><span class="p">],</span> <span class="s1">&#39;nasdaq&#39;</span><span class="p">)</span>
@@ -94,8 +95,41 @@
 
 <span class="c1"># You can view you Portfolio summary also by</span>
 <span class="n">portfolio</span><span class="o">.</span><span class="n">portfolio_summary</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">Portfolio Summary</span>
+<span class="go">*****************</span>
 
-<span class="c1"># Creating a Optimizer object and adding the portfolio</span>
+<span class="go">Stocks in the Portfolio : *************************</span>
+<span class="go">{&quot;[&#39;HDFCBANK&#39;, &#39;RELIANCE&#39;, &#39;INFY&#39;, &#39;BAJAJ-AUTO&#39;, &#39;TATAMOTORS&#39;]&quot;}</span>
+
+<span class="go">Beta :</span>
+<span class="go">******</span>
+<span class="go">|      |   HDFCBANK |   RELIANCE |     INFY |   BAJAJ-AUTO |   TATAMOTORS |</span>
+<span class="go">|------+------------+------------+----------+--------------+--------------|</span>
+<span class="go">| beta |    1.00174 |    1.04458 | 0.543611 |      1.01237 |      1.59273 |</span>
+
+<span class="go">Expected Returns :</span>
+<span class="go">******************</span>
+<span class="go">|    |   HDFCBANK |   RELIANCE |     INFY |   BAJAJ-AUTO |   TATAMOTORS |</span>
+<span class="go">|----+------------+------------+----------+--------------+--------------|</span>
+<span class="go">|  0 |    1.05617 |    1.09172 | 0.676051 |        1.065 |      1.54654 |</span>
+
+<span class="go">The covariance matrix is as follows</span>
+<span class="go">***********************************</span>
+<span class="go">|            |   HDFCBANK |   RELIANCE |       INFY |   BAJAJ-AUTO |   TATAMOTORS |</span>
+<span class="go">|------------+------------+------------+------------+--------------+--------------|</span>
+<span class="go">| HDFCBANK   | 0.00565169 | 0.00383894 | 0.00144691 |   0.00458971 |   0.00610401 |</span>
+<span class="go">| RELIANCE   | 0.00383894 | 0.00795272 | 0.00227559 |   0.00466296 |   0.0060295  |</span>
+<span class="go">| INFY       | 0.00144691 | 0.00227559 | 0.00679807 |   0.00154204 |   0.00296804 |</span>
+<span class="go">| BAJAJ-AUTO | 0.00458971 | 0.00466296 | 0.00154204 |   0.0110113  |   0.00849118 |</span>
+<span class="go">| TATAMOTORS | 0.00610401 | 0.0060295  | 0.00296804 |   0.00849118 |   0.0228973  |</span>
+
+<span class="go">Portfolio Returns at equals weights: 1.0870947316063777</span>
+<span class="go">Portfolio Risk at equals weights: 0.5528354886819963</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating a Optimizer object and adding the portfolio</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">Optimizer</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add_portfolio</span><span class="p">(</span><span class="n">portfolio</span><span class="o">=</span><span class="n">portfolio</span><span class="p">)</span>
 
@@ -107,16 +141,15 @@
 </pre></div>
 </div>
 <div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">Optimized successfully.</span>
-<span class="go">Expected Portfolio&#39;s Returns : 1.3079</span>
-<span class="go">Risk : 1.0000</span>
+<span class="go">Expected Portfolio&#39;s Returns : 1.1792</span>
+<span class="go">Risk : 0.8001</span>
 <span class="go">Expected weights:</span>
 <span class="go">--------------------</span>
-<span class="go">[&#39;HDFCBANK.NS&#39;]: 22.85%</span>
-<span class="go">[&#39;RELIANCE.NS&#39;]: 27.83%</span>
-<span class="go">[&#39;TCS.NS&#39;]: 0.00%</span>
-<span class="go">[&#39;INFY.NS&#39;]: 0.00%</span>
-<span class="go">[&#39;BAJAJ-AUTO.NS&#39;]: 0.00%</span>
-<span class="go">[&#39;TATAMOTORS.NS&#39;]: 49.32%</span>
+<span class="go">[&#39;HDFCBANK&#39;]: 47.44%</span>
+<span class="go">[&#39;RELIANCE&#39;]: 29.62%</span>
+<span class="go">[&#39;INFY&#39;]: 0.00%</span>
+<span class="go">[&#39;BAJAJ-AUTO&#39;]: 0.00%</span>
+<span class="go">[&#39;TATAMOTORS&#39;]: 22.94%</span>
 </pre></div>
 </div>
 </section>
@@ -198,7 +231,7 @@
         <li class="right" >
           <a href="modules.html" title="portfolio_optimizer"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">portfolio_optimizer 0.2.6​ documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">portfolio_optimizer 0.3.2​ documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Welcome to portfolio_optimizer!</a></li> 
       </ul>
     </div>
