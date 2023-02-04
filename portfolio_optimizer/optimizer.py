@@ -9,12 +9,7 @@ from portfolio_optimizer.style import cprint
 class Optimizer:
 
     """
-    Optimize the portfolio
-
-    Parameters
-    ----------
-    portfolio : Portfolio
-        Portfolio to optimize
+    Class to for optimizing the portfolio's weights using the expected return of the portfolio as the objective function
 
     Attributes
     ----------
@@ -23,8 +18,10 @@ class Optimizer:
 
     Methods
     -------
-    model(weights, model)
-        Calculate the expected return of the portfolio
+
+    add_portfolio(portfolio)
+        Add the portfolio to optimize
+        
     optimize_portfolio(model, risk, short=False)
         Optimize the portfolio
 
@@ -44,11 +41,12 @@ class Optimizer:
         """
         self.portfolio = portfolio
 
-    def model(self, weights, model):
+    def __model(self, weights, model):
 
         """
-        CAPM Model
+        Calculate the expected return of the portfolio using the model specified
 
+        
         Parameters
         ----------
         weights : list
@@ -56,7 +54,6 @@ class Optimizer:
 
         model : str
             Model to use for the the calculation of the expected return
-
 
         Returns
         -------
@@ -81,7 +78,6 @@ class Optimizer:
         short : bool, optional
             Allow shorting, by default False
 
-
         Returns
         -------
         Returns the optimized weights of the portfolio and maximized portfolio_returns
@@ -96,7 +92,7 @@ class Optimizer:
             bounds = tuple([(0, 1)] * len(self.portfolio))
 
         def objective_function(weights):
-            return -self.model(weights=weights, model=model)
+            return -self.__model(weights=weights, model=model)
 
         cons = (
             {"type": "eq", "fun": lambda x: sum(x) - 1},
@@ -121,18 +117,18 @@ class Optimizer:
         portfolio_expected_return = -res.fun
 
         if res["success"]:
-            cprint.print("Optimized successfully.", "green")
+            cprint.print("Optimized successfully.", "header")
         else:
             cprint.print(f"Optimization failed. {res['message']}", "fail")
             cprint.print("Here are the last results:", "fail")
 
         cprint.print(
-            f"Expected Portfolio's Returns : {portfolio_expected_return:.4f}", "green"
+            f"Expected Portfolio's Returns : {portfolio_expected_return:.4f}", "yellow"
         )
         cprint.print(f"Risk : {std:.4f}", "red")
 
-        cprint.print("Expected weights:", "green")
-        cprint.print("-" * 20, "green")
+        cprint.print("Expected weights:", "header")
+        cprint.print("-" * 20, "header")
         for i, stock in enumerate(self.portfolio.portfolio_stocks()):
             cprint.print(f"{[stock]}: {weights[i]*100:.2f}%", "green")
 

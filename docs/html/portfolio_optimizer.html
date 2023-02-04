@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>portfolio_optimizer package &#8212; portfolio_optimizer 0.2.3​ documentation</title>
+    <title>portfolio_optimizer package &#8212; portfolio_optimizer 0.2.6​ documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
@@ -30,7 +30,7 @@
         <li class="right" >
           <a href="modules.html" title="portfolio_optimizer"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">portfolio_optimizer 0.2.3​ documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">portfolio_optimizer 0.2.6​ documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">portfolio_optimizer</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">portfolio_optimizer package</a></li> 
       </ul>
@@ -437,12 +437,7 @@ or “equals” for equal weights</p></li>
 <dt class="sig sig-object py" id="portfolio_optimizer.optimizer.Optimizer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">portfolio_optimizer.optimizer.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><a class="headerlink" href="#portfolio_optimizer.optimizer.Optimizer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Optimize the portfolio</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>portfolio</strong> (<a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio" title="portfolio_optimizer.portfolio.Portfolio"><em>Portfolio</em></a>) – Portfolio to optimize</p>
-</dd>
-</dl>
+<p>Class to for optimizing the portfolio’s weights using the expected return of the portfolio as the objective function</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="portfolio_optimizer.optimizer.Optimizer.portfolio">
 <span class="sig-name descname"><span class="pre">portfolio</span></span><a class="headerlink" href="#portfolio_optimizer.optimizer.Optimizer.portfolio" title="Permalink to this definition">¶</a></dt>
@@ -455,44 +450,24 @@ or “equals” for equal weights</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="portfolio_optimizer.optimizer.Optimizer.model">
-<span class="sig-name descname"><span class="pre">model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.optimizer.Optimizer.model" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the expected return of the portfolio</p>
+<dt class="sig sig-object py" id="portfolio_optimizer.optimizer.Optimizer.add_portfolio">
+<span class="sig-name descname"><span class="pre">add_portfolio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.optimizer.Optimizer.add_portfolio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the portfolio to optimize</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="portfolio_optimizer.optimizer.Optimizer.optimize_portfolio">
-<span class="sig-name descname"><span class="pre">optimize_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">risk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.optimizer.Optimizer.optimize_portfolio" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">optimize_portfolio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.optimizer.Optimizer.optimize_portfolio" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optimize the portfolio</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="portfolio_optimizer.optimizer.Optimizer.add_portfolio">
-<span class="sig-name descname"><span class="pre">add_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio" title="portfolio_optimizer.portfolio.Portfolio"><span class="pre">Portfolio</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.optimizer.Optimizer.add_portfolio" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">add_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio" title="portfolio_optimizer.portfolio.Portfolio"><span class="pre">Portfolio</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add the portfolio to optimize</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>portfolio</strong> (<a class="reference internal" href="#portfolio_optimizer.portfolio.Portfolio" title="portfolio_optimizer.portfolio.Portfolio"><em>Portfolio</em></a>) – Portfolio to optimize</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
-<dd><p>CAPM Model</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>weights</strong> (<em>list</em>) – weights of each stocks</p></li>
-<li><p><strong>model</strong> (<em>str</em>) – Model to use for the the calculation of the expected return</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Return of the expected return of the portfolio</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -588,8 +563,9 @@ Use the <cite>fit</cite> method to fit the model. Then predict the Y values give
 <li><p><strong>short</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to allow shorting, by default False</p></li>
 <li><p><strong>model</strong> (<em>str</em><em>, </em><em>optional</em>) – The model to use, by default “capm”. Supported models are ‘capm’, ‘sim’
 (If you want to use ‘fff3’ or ‘fff5’, first load the fff parameters.)</p></li>
-<li><p><strong>---------------</strong> – </p></li>
-<li><p><strong>portfolio</strong> (<em>Needed if you want to make a frontier with random stocks</em><em> or </em><em>without adding a</em>) – </p></li>
+<li><p><strong>--------------------------------------------</strong> – </p></li>
+<li><p><strong>portfolio</strong> (<em>Now you can make a frontier with random stocks</em><em> or </em><em>without adding a</em>) – </p></li>
+<li><p><strong>--------------------------------------------</strong> – </p></li>
 <li><p><strong>stocks</strong> (<em>dict</em>) – Dictionary containing the stock names and the stock data.</p></li>
 <li><p><strong>**kwargs</strong> (<em>dict</em>) – <dl class="simple">
 <dt>freq<span class="classifier">str</span></dt><dd><p>Frequency of the data. Default is “Monthly”.</p>
@@ -615,24 +591,22 @@ Use the <cite>fit</cite> method to fit the model. Then predict the Y values give
 </pre></div>
 </div>
 <p class="rubric">Notes</p>
-<p>You have to create a Portoflio object first. Then you need to load data. Only then you can call <cite>plot_frontier()</cite>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="portfolio_optimizer.frontier.EfficientFrontier.plot_sim">
 <span class="sig-name descname"><span class="pre">plot_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#portfolio_optimizer.frontier.EfficientFrontier.plot_sim" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot the efficient frontier.
-:param model: The model to use for calculating the expected returns. Default is “mean”.
-:type model: str
-:param short: Whether to allow shorting of stocks. Default is False.
-:type short: bool, optional</p>
-<dl class="simple">
-<dt>stocks<span class="classifier">dict</span></dt><dd><p>Dictionary containing the stock names and the stock data.</p>
-</dd>
-</dl>
-<p><a href="#id2"><span class="problematic" id="id3">**</span></a>kwargs : dict</p>
-<blockquote>
-<div><dl class="simple">
+<dd><p>Plot the efficient frontier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>str</em>) – The model to use for calculating the expected returns. Default is “mean”.</p></li>
+<li><p><strong>short</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to allow shorting of stocks. Default is False.</p></li>
+<li><p><strong>--------------------------------------------</strong> – </p></li>
+<li><p><strong>portfolio</strong> (<em>Now you can make a frontier with random stocks</em><em> or </em><em>without adding a</em>) – </p></li>
+<li><p><strong>--------------------------------------------</strong> – </p></li>
+<li><p><strong>stocks</strong> (<em>dict</em>) – Dictionary containing the stock names and the stock data.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – <dl class="simple">
 <dt>freq<span class="classifier">str</span></dt><dd><p>Frequency of the data. Default is “Monthly”.</p>
 </dd>
 <dt>benchmark<span class="classifier">dict</span></dt><dd><p>Dictionary containing the benchmark Name and the benchmark data.</p>
@@ -640,13 +614,14 @@ Use the <cite>fit</cite> method to fit the model. Then predict the Y values give
 <dt>risk_free_rate<span class="classifier">float</span></dt><dd><p>Risk free rate of return. Default is 0.225</p>
 </dd>
 </dl>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>fig</strong> – Plotly figure object.</p>
+</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>plotly.graph_objects.Figure</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fig</strong> – Plotly figure object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>plotly.graph_objects.Figure</p>
 </dd>
 </dl>
 </dd></dl>
@@ -704,10 +679,9 @@ Use the <cite>fit</cite> method to fit the model. Then predict the Y values give
 <li><a class="reference internal" href="#module-portfolio_optimizer.optimizer">portfolio_optimizer.optimizer module</a><ul>
 <li><a class="reference internal" href="#portfolio_optimizer.optimizer.Optimizer"><code class="docutils literal notranslate"><span class="pre">Optimizer</span></code></a><ul>
 <li><a class="reference internal" href="#portfolio_optimizer.optimizer.Optimizer.portfolio"><code class="docutils literal notranslate"><span class="pre">Optimizer.portfolio</span></code></a></li>
-<li><a class="reference internal" href="#portfolio_optimizer.optimizer.Optimizer.model"><code class="docutils literal notranslate"><span class="pre">Optimizer.model()</span></code></a></li>
-<li><a class="reference internal" href="#portfolio_optimizer.optimizer.Optimizer.optimize_portfolio"><code class="docutils literal notranslate"><span class="pre">Optimizer.optimize_portfolio()</span></code></a></li>
 <li><a class="reference internal" href="#portfolio_optimizer.optimizer.Optimizer.add_portfolio"><code class="docutils literal notranslate"><span class="pre">Optimizer.add_portfolio()</span></code></a></li>
-<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">Optimizer.model()</span></code></a></li>
+<li><a class="reference internal" href="#portfolio_optimizer.optimizer.Optimizer.optimize_portfolio"><code class="docutils literal notranslate"><span class="pre">Optimizer.optimize_portfolio()</span></code></a></li>
+<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">Optimizer.add_portfolio()</span></code></a></li>
 <li><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">Optimizer.optimize_portfolio()</span></code></a></li>
 </ul>
 </li>
@@ -768,7 +742,7 @@ Use the <cite>fit</cite> method to fit the model. Then predict the Y values give
         <li class="right" >
           <a href="modules.html" title="portfolio_optimizer"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">portfolio_optimizer 0.2.3​ documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">portfolio_optimizer 0.2.6​ documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >portfolio_optimizer</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">portfolio_optimizer package</a></li> 
       </ul>

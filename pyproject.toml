@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "portfolio-optimizer0"
-version = "0.2.3"
+version = "0.2.6"
 description = "A library for Portfolio management and optimization"
 readme = "README.md"
 authors = [{ name = "Shailja Kant Tiwari", email = "shailjakant2000@gmail.com" }]

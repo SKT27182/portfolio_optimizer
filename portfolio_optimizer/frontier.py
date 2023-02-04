@@ -256,16 +256,19 @@ class EfficientFrontier:
 
         """
         Plot the efficient frontier.
+
         Parameters
         ----------
+
         model : str
             The model to use for calculating the expected returns. Default is "mean".
+
         short : bool, optional
             Whether to allow shorting of stocks. Default is False.
 
-
         --------------------------------------------
-        Needed if you want to make a frontier with random stocks or without adding a portfolio
+        Now you can make a frontier with random stocks or without adding a portfolio
+        --------------------------------------------
 
         stocks : dict
             Dictionary containing the stock names and the stock data.
@@ -400,10 +403,10 @@ class EfficientFrontier:
             The model to use, by default "capm". Supported models are 'capm', 'sim'
             (If you want to use 'fff3' or 'fff5', first load the fff parameters.)
 
-        ---------------
-
-        Needed if you want to make a frontier with random stocks or without adding a portfolio
-
+        --------------------------------------------
+        Now you can make a frontier with random stocks or without adding a portfolio
+        --------------------------------------------
+        
         stocks : dict
             Dictionary containing the stock names and the stock data.
 
@@ -428,8 +431,7 @@ class EfficientFrontier:
         >>> ef.plot_frontier()
         Notes
         -----
-
-        You have to create a Portoflio object first. Then you need to load data. Only then you can call `plot_frontier()`.
+        
         """
 
         if not hasattr(self, "portfolio") or stocks is not None:
